@@ -1,0 +1,4 @@
+ve
+*.pyc
+*.sqlite
+app/static/dist

@@ -1,0 +1,15 @@
+Django==1.5.1
+Coffin==0.3.7
+Jinja2==2.6
+MarkupSafe==0.18 # Makes Jinja2 escaping faster
+webassets==0.8
+django-assets==0.8
+django-storages==1.1.8
+boto==2.9.3
+gunicorn==0.17.4
+python-memcached==1.51
+django-debug-toolbar==0.9.4
+ujson==1.33
+
+# Fixed PyMysql for django 1.5 integration
+-e git://github.com/CMGS/PyMySQL.git@3598acd1f000eed56bf7bc09b149f347d7cad9ae#egg=PyMySQL-dev
