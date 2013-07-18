@@ -1,1 +1,1 @@
-web: gunicorn config.prod.wsgi
+web: gunicorn config.$APP_ENV.wsgi

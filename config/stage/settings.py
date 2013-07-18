@@ -1,13 +1,13 @@
 from config.common.settings import *
 from boto.s3.connection import OrdinaryCallingFormat
 
-ENV = 'prod'
+ENV = 'stage'
 
 DEBUG = TEMPLATE_DEBUG = False
 
 INSTALLED_APPS += ('storages',)
 
-AWS_STORAGE_BUCKET_NAME = 'djbp-prod/%s' % RELEASE_NUM
+AWS_STORAGE_BUCKET_NAME = 'djbp-stage/%s' % RELEASE_NUM
 STATICFILES_STORAGE = 'app.core.s3.StaticRootS3BotoStorage'
 S3_URL = 'http://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = S3_URL
@@ -24,8 +24,8 @@ ADMINS = (
 # SMTP STTINGS
 EMAIL_HOST = 'smtp.mandrillapp.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'app16981690@heroku.com'
-EMAIL_HOST_PASSWORD = 'zz7UMm865O77mis14zgSFw'
+EMAIL_HOST_USER = 'app16994495@heroku.com'
+EMAIL_HOST_PASSWORD = 'FlmoE9aZFA56gxwBs0rVSA'
 EMAIL_USE_TLS = True
 SERVER_EMAIL = 'ken@twubs.com'
 
