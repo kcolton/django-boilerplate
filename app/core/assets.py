@@ -1,7 +1,7 @@
 from django_assets import Bundle, register
 from django.conf import settings
 
-js_filters = ['rjsmin']
+js_filters = ['yui_js']
 css_filters = []
 
 if not settings.ASSETS_DEBUG:
