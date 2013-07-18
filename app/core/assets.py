@@ -1,13 +1,17 @@
 from django_assets import Bundle, register
 from django.conf import settings
 
-js_filters = []
+js_filters = ['rjsmin']
 css_filters = []
 
 if not settings.ASSETS_DEBUG:
     css_filters.extend(['less', 'cssrewrite'])
 
 register('main.js', Bundle(
+
+    'js/ext/jquery/jquery.history.js',
+    'js/ext/jquery/jquery.cookie.js',
+
     'js/ext/modernizr.js',
     'js/ext/bootstrap.js',
 
