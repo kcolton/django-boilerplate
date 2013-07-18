@@ -1,5 +1,5 @@
 import django.conf.global_settings as DEFAULT_SETTINGS
-import os
+import os, sys
 
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -16,9 +16,7 @@ APP_ROOT = os.path.join(TOP_ROOT, 'app')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
+ADMINS = ()
 
 INTERNAL_IPS = ('127.0.0.1',)
 
@@ -195,11 +193,16 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'stream': sys.stdout
         }
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['console', 'mail_admins'],
             'level': 'ERROR',
             'propagate': True,
         },
