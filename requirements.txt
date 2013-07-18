@@ -12,5 +12,8 @@ django-debug-toolbar==0.9.4
 ujson==1.33
 yuicompressor==2.4.7
 
+greenlet==0.4.1
+./ext/gevent-1.0rc2.tar.gz
+
 # Fixed PyMysql for django 1.5 integration
 -e git://github.com/CMGS/PyMySQL.git@3598acd1f000eed56bf7bc09b149f347d7cad9ae#egg=PyMySQL-dev

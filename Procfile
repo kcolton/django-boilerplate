@@ -1,1 +1,1 @@
-web: gunicorn config.$APP_ENV.wsgi
+web: gunicorn -k gevent -w 4 config.$APP_ENV.wsgi
