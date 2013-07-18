@@ -7,7 +7,7 @@ DEBUG = TEMPLATE_DEBUG = False
 
 INSTALLED_APPS += ('storages',)
 
-AWS_STORAGE_BUCKET_NAME = 'djbp'
+AWS_STORAGE_BUCKET_NAME = 'djbp/%s' % RELEASE_NUM
 STATICFILES_STORAGE = 'app.core.s3.StaticRootS3BotoStorage'
 S3_URL = 'http://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = S3_URL
