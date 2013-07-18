@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width">
 
     {% if ENV == 'local' %}
-    <script src="{{ 'js/ext/jquery.js'|static }}"></script>
+    <script src="{{ 'js/ext/jquery/jquery.js'|static }}"></script>
     {% else %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     {% endif %}
