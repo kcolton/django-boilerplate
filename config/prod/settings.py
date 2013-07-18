@@ -9,7 +9,7 @@ INSTALLED_APPS += ('storages',)
 
 AWS_STORAGE_BUCKET_NAME = 'djbp'
 STATICFILES_STORAGE = 'app.core.s3.StaticRootS3BotoStorage'
-S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+S3_URL = 'http://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = S3_URL
 
 AWS_ACCESS_KEY_ID = 'AKIAIMRPSXJ2CE4ZQEXA'
