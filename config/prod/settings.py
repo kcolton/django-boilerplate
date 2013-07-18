@@ -1,4 +1,5 @@
 from config.common.settings import *
+from boto.s3.connection import OrdinaryCallingFormat
 
 ENV = 'prod'
 
@@ -13,7 +14,8 @@ STATIC_URL = S3_URL
 
 AWS_ACCESS_KEY_ID = 'AKIAIMRPSXJ2CE4ZQEXA'
 AWS_SECRET_ACCESS_KEY = '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'
-AWS_QUERYSTRING_AUTH = False # Important, otherwise you get a bunch of junk in the generated URLs
+AWS_QUERYSTRING_AUTH = False # Important! otherwise you get a bunch of junk in the generated URLs
+AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat() # Important! Otherwise you get SSL warnings and embedded things don't load
 
 # CACHES = {
 #     'default': {
