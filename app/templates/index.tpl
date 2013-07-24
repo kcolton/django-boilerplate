@@ -8,4 +8,7 @@
 <p>
     <a href="javascript:;" class="btn btn-primary"><i class="icon icon-heart"></i> Sauce!</a>
 </p>
+<p>
+    Foo: {{ foo }}
+</p>
 {% endblock %}

@@ -1,4 +1,7 @@
-from lib.django.views.shortcuts import render_html
+from lib.django.views.decorators import HtmlView
 
+@HtmlView(template='index.tpl')
 def index(request):
-    return render_html(request, 'index.tpl')
+    return {
+        'foo': 'bar!'
+    }
