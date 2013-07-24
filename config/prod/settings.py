@@ -29,6 +29,8 @@ EMAIL_HOST_PASSWORD = 'zz7UMm865O77mis14zgSFw'
 EMAIL_USE_TLS = True
 SERVER_EMAIL = 'ken@twubs.com'
 
+JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
+
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',

@@ -1,6 +1,8 @@
 import django.conf.global_settings as DEFAULT_SETTINGS
 import os, sys
 
+from jinja2 import Undefined, DebugUndefined, StrictUndefined
+
 import pymysql
 pymysql.install_as_MySQLdb()
 
@@ -207,6 +209,13 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+JINJA2_ENVIRONMENT_OPTIONS = {
+    'autoescape': True,
+    'undefined': Undefined,
+    'auto_reload': True,
+    'cache_size': 1000,
 }
 
 # Base authentication configuration
