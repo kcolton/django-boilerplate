@@ -33,7 +33,7 @@ JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
 
 # CACHES = {
 #     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'BACKEND': 'lib.django.cache.memcached.ConsistentMemcachedCache',
 #         'LOCATION': 'localhost:11211',
 #         'KEY_PREFIX': ''
 #     }
