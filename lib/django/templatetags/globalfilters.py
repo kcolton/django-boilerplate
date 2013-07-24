@@ -10,3 +10,15 @@ def static(path):
 @register.filter
 def has_attr(object, attr):
     return hasattr(object, attr)
+
+@register.filter
+def url_escape(str):
+    return urllib.quote(str)
+
+@register.filter
+def url_escape_plus(str):
+    return urllib.quote_plus(str)
+
+@register.filter
+def url_encode(query):
+    return urllib.urlencode(query)
