@@ -7,9 +7,8 @@ from lib.django.views.shortcuts import render_html
 MIME_JSON = 'application/json; charset=utf-8'
 
 class JsonView(object):
-    def __init__(self):
-        # todo  - add jsonp support
-        pass
+    def __init__(self, allow_jsonp=False):
+        self.allow_jsonp = allow_jsonp
 
     def __call__(self, fn):
         """ 
@@ -36,7 +35,13 @@ class JsonView(object):
                 # All went well, return normal response
                 response_class = HttpResponse
 
-            return response_class(json.dumps(output), mimetype=MIME_JSON)
+            json_string = json.dumps(output)
+
+            # If jsonp, wrap in a callback
+            if self.allow_jsonp and 'callback' in request.GET:
+                json_string = '%s(%s)' % (request.GET['callback'], json_string)
+
+            return response_class(json_string, mimetype=MIME_JSON)
 
         return wrapper
 
