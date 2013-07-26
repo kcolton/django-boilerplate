@@ -158,7 +158,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     # Uncomment the next line if we are using db backed sessions. Otherwise only the middleware is needed
-    'django.contrib.sessions',
+    # 'django.contrib.sessions',
     # Uncomment the next line 
     # 'django.contrib.sites',
     'django.contrib.messages',
