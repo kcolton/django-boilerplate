@@ -30,3 +30,5 @@ greenlet==0.4.1
 
 # CMGS fork of PyMySQL which fixes django 1.5 compat issue
 ./ext/pymysql-cmgs.zip
+
+# Hello - test clone
