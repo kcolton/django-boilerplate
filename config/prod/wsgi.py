@@ -27,8 +27,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.prod.settings")
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
 
-# Apply WSGI middleware here.
-# from helloworld.wsgi import HelloWorldApplication
-# application = HelloWorldApplication(application)
+# Get rid of cling for high traffic apps with statics served over S3
+from dj_static import Cling
+application = Cling(get_wsgi_application())

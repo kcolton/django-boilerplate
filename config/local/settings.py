@@ -1,8 +1,8 @@
 from config.common.settings import *
 
 ENV = 'local'
-
 ASSETS_DEBUG = True
+WSGI_APPLICATION = 'config.local.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -12,3 +12,4 @@ DATABASES = {
 }
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
