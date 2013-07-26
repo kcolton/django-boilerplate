@@ -28,5 +28,5 @@ gunicorn==0.17.4
 greenlet==0.4.1
 ./ext/gevent-1.0rc2.tar.gz
 
-# Fixed PyMysql for django 1.5 integration
--e git://github.com/CMGS/PyMySQL.git@3598acd1f000eed56bf7bc09b149f347d7cad9ae#egg=PyMySQL-dev
+# CMGS fork of PyMySQL which fixes django 1.5 compat issue
+./ext/pymysql-cmgs.zip
