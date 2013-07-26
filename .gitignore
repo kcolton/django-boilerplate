@@ -1,5 +1,4 @@
 ve
 *.pyc
 *.sqlite
-app/static/dist
 app/collectedstatic
