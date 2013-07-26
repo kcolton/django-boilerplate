@@ -1,6 +1,5 @@
 import django.conf.global_settings as DEFAULT_SETTINGS
 import os, sys
-
 from jinja2 import Undefined, DebugUndefined, StrictUndefined
 
 import pymysql
@@ -167,6 +166,8 @@ INSTALLED_APPS = (
     # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'suit',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
