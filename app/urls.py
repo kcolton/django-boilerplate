@@ -6,8 +6,11 @@ from django.views.generic.base import RedirectView
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    url(r'^', include('app.web.urls')),
+urlpatterns = patterns('app.views',
+    url(r'^$', 'home.index', name='home'),
+
+    # Uncomment this if you actually add stuff into the api sub app
+    # url(r'^api/', include('app.api.urls')),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

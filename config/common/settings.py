@@ -148,8 +148,6 @@ INSTALLED_APPS = (
 
     'app.core',
     'app.api',
-    'app.mobile',
-    'app.web',
 
     'coffin',
     'django_assets',
