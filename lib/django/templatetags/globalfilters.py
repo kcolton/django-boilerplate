@@ -1,5 +1,6 @@
 from django import template
 from django.contrib.staticfiles.storage import staticfiles_storage
+import urllib
 
 register = template.Library()
 
