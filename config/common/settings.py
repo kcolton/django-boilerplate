@@ -216,6 +216,8 @@ JINJA2_ENVIRONMENT_OPTIONS = {
     'cache_size': 1000,
 }
 
+AUTH_USER_MODEL = 'app.User'
+
 # Base authentication configuration
 # LOGIN_URL = 'login'
 # LOGIN_REDIRECT_URL = 'profile'
