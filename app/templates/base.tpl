@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>{% block full_title %}{% block title %}{% endblock %} | ACME{% endblock %}</title>
+    <title>{% block title %}DJBP{% endblock %}</title>
     <meta name="viewport" content="width=device-width">
 
     {% if ENV == 'local' %}
