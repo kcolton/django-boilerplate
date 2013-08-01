@@ -1,3 +1,4 @@
+{% if not IS_BARE %}
 <!DOCTYPE html>
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
@@ -37,10 +38,29 @@
     <script src="{{ 'js/ext/less.js'|static }}"></script>
     {% endif %}
 
+    <script>
+    $(function() {
+      $RC.app = new $C.App();
+    });
+    </script>
+
     {% block seo_tags %}{% endblock %}
     {% block head_tags %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
-    {% block content %}{% endblock %}
+    <div id="top-bar">
+      <div class="wrap">
+        <a href="{% url 'home' %}">DJBP</a> |
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'foo' %}">Foo</a> |
+        <a href="{% url 'bar' %}">Bar</a>
+      </div>
+    </div>
+    <div id="content" class="wrap">
+      {% block content %}{% endblock %}
+    </div>
   </body>
 </html>
+{% else %}
+{% extends "base_bare.tpl" %}
+{% endif %}

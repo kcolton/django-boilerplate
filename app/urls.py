@@ -8,9 +8,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('app.views',
     url(r'^$', 'home.index', name='home'),
+    url(r'^foo/$', 'home.foo', name='foo'),
+    url(r'^bar/$', 'home.bar', name='bar'),
 
     # Uncomment this if you actually add stuff into the api sub app
-    # url(r'^api/', include('app.api.urls')),
+    url(r'^a/', include('app.api.urls')),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
