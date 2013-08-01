@@ -1,12 +1,12 @@
-App.controllers.App = function() {
+App.controllers.App = function($content, $spinner) {
 
   var self = this,
     own = {},
     dom = {};
 
   /* ***** GRAB DOM REFERENCES ***** */
-  dom.$content = $('#content');
-  dom.$spinner = $('#spinner');
+  dom.$content = $content;
+  dom.$spinner = $spinner;
 
   /**********************************************************************
    * PRIVATE METHODS

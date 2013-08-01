@@ -75,5 +75,3 @@ class HtmlView(object):
 
 
 
-
-

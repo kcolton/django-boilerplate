@@ -1,4 +1,4 @@
-{% extends "base.tpl" %}
+{% extends "example/body.tpl" %}
 
 {% block content %}
 <div class="wrap _meta-hasView" data-view="Home">

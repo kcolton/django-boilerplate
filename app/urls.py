@@ -7,9 +7,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('app.views',
-    url(r'^$', 'home.index', name='home'),
-    url(r'^foo/$', 'home.foo', name='foo'),
-    url(r'^bar/$', 'home.bar', name='bar'),
+    url(r'^$', 'example.index', name='home'),
+    url(r'^foo/$', 'example.foo', name='foo'),
+    url(r'^bar/$', 'example.bar', name='bar'),
 
     # Uncomment this if you actually add stuff into the api sub app
     url(r'^a/', include('app.api.urls')),

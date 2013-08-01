@@ -1,2 +1,2 @@
-<span class="_meta-pageTitle" style="display: none;">{% block full_title %}{% block title %}{% endblock %} | ACME{% endblock %}</span>
+<span class="_meta-pageTitle" style="display: none;">{% block title %}{% endblock %}</span>
 {% block content %}{% endblock %}

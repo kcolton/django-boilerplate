@@ -40,7 +40,7 @@
 
     <script>
     $(function() {
-      $RC.app = new $C.App();
+      $RC.app = new $C.App($('#app-content'), $('#app-spinner'));
     });
     </script>
 
@@ -48,17 +48,7 @@
     {% block head_tags %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
-    <div id="top-bar">
-      <div class="wrap">
-        <a href="{% url 'home' %}">DJBP</a> |
-        <a href="{% url 'home' %}">Home</a> |
-        <a href="{% url 'foo' %}">Foo</a> |
-        <a href="{% url 'bar' %}">Bar</a>
-      </div>
-    </div>
-    <div id="content" class="wrap">
-      {% block content %}{% endblock %}
-    </div>
+    {% block body %}{% endblock %}
   </body>
 </html>
 {% else %}
