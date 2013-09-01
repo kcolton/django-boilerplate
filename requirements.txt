@@ -1,4 +1,5 @@
 Django==1.5.1
+pytz==2013b             # Not "required", but should always be included when dealing with time
 
 # Template processing
 Coffin==0.3.7           # Makes Jinja2 integration into django pretty seamless
