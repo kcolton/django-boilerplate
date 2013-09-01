@@ -151,6 +151,7 @@ INSTALLED_APPS = (
 
     'coffin',
     'django_assets',
+    'widget_tweaks',
     # 'debug_toolbar',
 
     'django.contrib.auth',
