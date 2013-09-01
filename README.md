@@ -1,8 +1,14 @@
 django-boilerplate
 ==================
 
-So you need to create a high performance, high availability web application for your
-next huge social-media-instagram-for-local-pointalism-art site huh? You have come to the right place, 
-django-boilerplate will get you on your feet using industry standard and battle harded techniques.
+WIP - Aggregating best practices and useful shortcuts into an easy-to-clone starting point for hitting the
+ground running when starting a new django project.
 
-Aint nobody got time for crashing.
+This is just a personal project, but feel free to check it out.
+
+Stack in mind:
+Python 2.7
+Django 1.5
+Heroku
+Jinja2
+LESS
