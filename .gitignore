@@ -1,4 +1,5 @@
 ve
+.idea
 *.pyc
 *.sqlite
 app/collectedstatic
