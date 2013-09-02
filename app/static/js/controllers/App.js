@@ -87,8 +87,5 @@ App.controllers.App = function($content, $spinner) {
     return false;
   });
 
-  // Load user
-  $RS.user = new $S.User();
-
   console.log('App Initialized!');
 };

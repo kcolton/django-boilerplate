@@ -22,9 +22,7 @@ register('main.js', Bundle(
     'js/utils/Ajax.js',
 
     'js/controllers/App.js',
-
-    'js/services/User.js',
-
+    
     'js/views/Home.js',
 
     filters=js_filters,
