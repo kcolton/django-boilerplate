@@ -1,37 +1,29 @@
-{% macro form_field_html(field) %}
-  {{ field|safe }}
-{% endmacro %}
-
-
-{% macro form_field_text_html(field) %}
-  {{ field|add_class("form-control")|safe }}
-{% endmacro %}
-
-
-{%
-   set field_map = {
-    'TextInput': form_field_text_html,
-    'DateInput': form_field_text_html,
-    'DateTimeInput': form_field_text_html
-   }
-%}
-
-
 {% macro form_row_html(field) %}
-  <div class="form-group{{ ' has-error' if field.errors }}">
-    <div>{{ field.field.widget.__class__.__name__ }}</div>
-
-    {{ field.label_tag()|safe }}
+  <div class="form-group{{ ' has-error' if field.errors }}" data-field-type="{{ field.field.widget.__class__.__name__ }}">
 
     {# Look at the type of field widget to see how to render it #}
-    {% if field_map[field.field.widget.__class__.__name__] %}
-      {{ field_map[field.field.widget.__class__.__name__](field) }}
+    {% if field|is_checkbox %}
+      <div class="checkbox">
+        <label>{{ field|safe }} {{ field.label }}</label>
+      </div>
+    {% elif field|is_radio %}
+      {{ field.label_tag()|safe }}
+      {% for choice in field %}
+        <div class="radio">
+          <label>{{ choice.tag()|safe }} {{ choice.choice_label }}</label>
+        </div>
+      {% endfor %}
+    {% elif field|is_checkbox_multiple %}
+      {# Where is the bootstrapy HTML? Nowhere until django 1.6 lands and un-retards CheckboxSelectMultiple #}
+      {{ field.label_tag()|safe }}
+      {{ field|safe }}
     {% else %}
-      {{ form_field_html(field) }}
+      {{ field.label_tag()|safe }}
+      {{ field|add_class("form-control")|safe }}
     {% endif %}
 
     {% for error in field.errors %}
-      <p class="help-block">{{ error }}</p>
+      <span class="help-block">{{ error }}</span>
     {% endfor %}
 
     {% if field.help_text %}
@@ -43,12 +35,21 @@
 
 {% macro form_body_html(form) %}
 
-  {{ form.non_field_errors()|safe }}
+  {% if form.non_field_errors() %}
+    <div class="alert alert-danger">
+      <a class="close" data-dismiss="alert">&times;</a>
+      {% for non_field_error in form.non_field_errors() %}
+        {{ non_field_error }}
+      {% endfor %}
+    </div>
+  {% endif %}
 
-  {# visible and hidden fields #}
-
-  {% for field in form %}
+  {% for field in form.visible_fields() %}
     {{ form_row_html(field) }}
+  {% endfor %}
+
+  {% for field in form.hidden_fields() %}
+    {{ field|safe }}
   {% endfor %}
 
 {% endmacro %}

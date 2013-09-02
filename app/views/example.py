@@ -1,6 +1,8 @@
+from decimal import Decimal
 from django import forms
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.utils.datetime_safe import datetime
 from lib.django.views.decorators import HtmlView
 from django.views.decorators.cache import cache_control
 
@@ -25,19 +27,31 @@ def form_example(request):
             (CHOICE_THREE, 'Choice Three'),
         )
 
-        example_required_bool = forms.BooleanField()
-        example_bool = forms.BooleanField(required=False)
-        example_char = forms.CharField(help_text="This is some text to help you. <a href=\"http://google.com\">Need more help</a>")
-        example_choice = forms.ChoiceField(choices=CHOICES)
-        example_date = forms.DateField()
-        example_datetime = forms.DateTimeField(help_text="Some tip for this date field")
-        example_decimal = forms.DecimalField()
-        example_email = forms.EmailField()
-        example_file = forms.FileField()
-        example_float = forms.FloatField()
-        example_image = forms.ImageField()
-        example_integer = forms.IntegerField()
-        example_multi = forms.MultipleChoiceField(choices=CHOICES)
+        example_char = forms.CharField(initial='Some text',
+                                       help_text="This is some text to help you. <a href=\"http://google.com\">Need more help</a>")
+        example_choice = forms.ChoiceField(choices=CHOICES, initial=CHOICE_ONE)
+        example_date = forms.DateField(initial=datetime.now())
+        example_datetime = forms.DateTimeField(initial=datetime.now(),
+                                               help_text="Some tip for this date field")
+        example_decimal = forms.DecimalField(initial=Decimal('42.22'))
+        example_email = forms.EmailField(initial='myemail@email.com')
+        example_required_bool = forms.BooleanField(initial=True)
+        example_bool = forms.BooleanField(required=False, initial=False)
+        example_radios = forms.ChoiceField(choices=CHOICES, initial=CHOICE_TWO, widget=forms.RadioSelect)
+        example_checks = forms.MultipleChoiceField(choices=CHOICES, initial=[CHOICE_TWO, CHOICE_THREE], widget=forms.CheckboxSelectMultiple)
+        example_file = forms.FileField(required=False)
+        example_float = forms.FloatField(initial=42.22)
+        example_image = forms.ImageField(required=False)
+        example_integer = forms.IntegerField(initial=3)
+        example_multi = forms.MultipleChoiceField(choices=CHOICES, initial=[CHOICE_ONE, CHOICE_TWO])
+
+        example_hidden = forms.CharField(initial='I am hiding', widget=forms.HiddenInput)
+
+        def clean(self):
+            cleaned_data = super(MyForm, self).clean()
+            if cleaned_data['example_bool']:
+                raise forms.ValidationError('Tricked you! You do not really want to have example bool checked.')
+            return cleaned_data
 
     if request.method == "POST":
         form = MyForm(request.POST)

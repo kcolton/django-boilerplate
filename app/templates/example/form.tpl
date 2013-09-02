@@ -1,14 +1,8 @@
 {% extends "example/body.tpl" %}
-{% from "macros/forms.tpl" import form_html %}
+{% import "macros/forms.tpl" as forms %}
 
 {% block content %}
   <h1>Form Example</h1>
-  {{ form_html(form)|safe }}
-
-  <br><br><br><br><br><br>
-
-  <form method="POST">
-    {{ form.as_p()|safe }}
-  </form>
-
+  {{ messages.html() }}
+  {{ forms.form_html(form)|safe }}
 {% endblock %}
