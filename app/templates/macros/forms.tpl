@@ -55,8 +55,8 @@
 {% endmacro %}
 
 
-{% macro form_html(form) %}
-  <form method="POST" role="form"{{ ' enctype="multipart/form-data' if form.is_multipart }}>
+{% macro form_html(form, extra_classes='') %}
+  <form method="POST" class="{{ extra_classes }}" role="form"{{ ' enctype="multipart/form-data' if form.is_multipart }}>
     {{ form_body_html(form) }}
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

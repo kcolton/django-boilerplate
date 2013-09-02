@@ -6,11 +6,11 @@ css_filters = []
 
 if not settings.ASSETS_DEBUG:
     css_filters.extend(['less', 'cssrewrite'])
-
 register('main.js', Bundle(
 
     'js/ext/jquery/jquery.history.js',
     'js/ext/jquery/jquery.cookie.js',
+    'js/ext/jquery/jquery.form.js',
 
     'js/ext/modernizr.js',
     'js/ext/bootstrap.js',

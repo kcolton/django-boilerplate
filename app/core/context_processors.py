@@ -10,7 +10,7 @@ def request(request):
         
         'ENV': settings.ENV,
         'RELEASE_NUM': settings.RELEASE_NUM,
-        'IS_BARE': bool(request.GET.get('_bare')),
+        'IS_BARE': request.IS_BARE,
         
         'STATIC_URL': settings.STATIC_URL,
         'MEDIA_URL': settings.MEDIA_URL,

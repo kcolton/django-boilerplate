@@ -9,23 +9,23 @@ App.controllers.App = function($content, $spinner) {
   dom.$spinner = $spinner;
 
   /**********************************************************************
-   * PRIVATE METHODS
+   * CONTENT LOADING
    **********************************************************************/
 
-  own.loadAjaxContent = function($container, url) {
+  self.loadAjaxContent = function(urlOrOptions, method, $container) {
+    if (!$container) { $container = dom.$content; }
+    if (!method) { method = 'GET'; }
 
-    console.log('loadAjaxContent:', url);
+    console.log('loadAjaxContent:', urlOrOptions);
 
-    $U.ajax.get(url).done(function(data, status, xhr) {
-      console.log('loadAjaxContent done:', arguments);
-      own.loadContent($container, data);
+    $U.ajax.request(method, urlOrOptions).done(function(data, status, xhr) {
+      self.loadContent(data);
     });
-
   };
 
-  own.loadContent = function($container, content) {
-
-    console.log('loadContent:', content);
+  self.loadContent = function(content, $container) {
+    if (!$container) { $container = dom.$content; }
+    console.log('loadContent:', content.length);
 
     var $content = $('<div class="content">' + content.toString() + '</div>');
 
@@ -40,15 +40,18 @@ App.controllers.App = function($content, $spinner) {
     // Inject the html
     $container.html($content);
 
-    own.instantiateContentViews($content);
+    // Scroll back to top
+    $(document).scrollTop(0);
+
+    self.instantiateContentViews($content);
   };
 
-  own.instantiateContentViews = function($content) {
+  self.instantiateContentViews = function($content) {
 
     console.log('instantiateContentViews:', $content);
 
     // Look view views to instantiate, including self. Do this in the most optimized way possible
-    $content.find('._meta-hasView').andSelf().filter('._meta-hasView').each(function() {
+    $content.find('._meta-view').andSelf().filter('._meta-view').each(function() {
       var $viewContainer = $(this),
         viewName = $viewContainer.data('view');
 
@@ -70,7 +73,7 @@ App.controllers.App = function($content, $spinner) {
 
   $U.ajax.setSpinner(dom.$spinner);
 
-  own.instantiateContentViews(dom.$content);
+  self.instantiateContentViews(dom.$content);
 
   History.Adapter.bind(window, 'statechange', function(e) {
     var state = History.getState();
@@ -78,12 +81,28 @@ App.controllers.App = function($content, $spinner) {
       .addQueryParam('_bare', '1')
       .deleteQueryParam('_suid').deleteQueryParam(''); // No need to send the History.js identifier over to our server. Also remove the crap blank one History added
       
-    own.loadAjaxContent(dom.$content, uri.toString());
+    self.loadAjaxContent(uri.toString());
   });
 
 
   $(document).on('click', 'a:not(.no-hijax)', function() {
     History.pushState(null, document.title, $(this).attr('href'));
+    return false;
+  });
+
+  $(document).on('submit', 'form.hijax', function() {
+    // Forms are the opposite. By default = no-hijax
+    console.log('hijax this form!');
+
+    var $form = $(this);
+    $form.ajaxSubmit({
+      data: {'_bare': true },
+      success: function(content) {
+        console.log('AJAX SUBMIT SUCCESS:', arguments);
+        self.loadContent(content);
+      }
+    });
+
     return false;
   });
 

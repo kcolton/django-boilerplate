@@ -15,6 +15,8 @@ App.utils.ajax = new function() {
       options = urlOrOptions;
     }
 
+    options.type = method;
+
     var xhr = $.ajax(options);
 
     return xhr;
@@ -41,3 +43,5 @@ App.utils.ajax = new function() {
   self.get = self.request.curry('GET');
   self.post = self.request.curry('POST');
 };
+
+$A

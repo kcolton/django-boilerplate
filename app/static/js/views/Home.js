@@ -3,6 +3,4 @@ App.views.Home = function($container) {
     dom = {};
 
   dom.$container = $container;
-
-  dom.$container.find('.mybox').css('border','2px solid red');
 };

@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django import forms
 from django.contrib import messages
+from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.utils.datetime_safe import datetime
 from lib.django.views.decorators import HtmlView
@@ -78,6 +79,16 @@ def messages_example(request):
     messages.error(request, 'Bad bad bad! Something really awful happened!')
     messages.add_message(request, 8000, 'Custom message level')
     return {}
+
+
+def redirect_internal(request):
+    messages.success(request, 'You have been redirected successfully!')
+    return HttpResponseRedirect(urlresolvers.reverse('messages_example'))
+
+
+def redirect_external(request):
+    return HttpResponseRedirect('http://www.youtube.com/watch?v=GP5D2apU2SE')
+
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
 @HtmlView(template='example/foo.tpl')
