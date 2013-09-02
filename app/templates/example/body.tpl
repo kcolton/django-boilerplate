@@ -9,6 +9,7 @@
       <ul class="nav navbar-nav">
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'form_example' %}">Form Example</a></li>
+        <li><a href="{% url 'messages_example' %}">Messages Example</a></li>
         <li><a href="{% url 'foo' %}">Foo</a></li>
         <li><a href="{% url 'bar' %}">Bar</a></li>
       </ul>

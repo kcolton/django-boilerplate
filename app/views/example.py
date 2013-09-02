@@ -58,12 +58,26 @@ def form_example(request):
         if form.is_valid():
             messages.success(request, 'Form saved successfully')
             return HttpResponseRedirect(request.get_full_path())
+        else:
+            messages.error(request, 'Some required fields are missing or invalid. Details below.')
     else:
         form = MyForm()
 
     return {
         'form': form
     }
+
+
+@HtmlView(template='example/messages.tpl')
+def messages_example(request):
+    messages.set_level(request, messages.DEBUG)
+    messages.debug(request, 'This is a debug message')
+    messages.info(request, 'This is an informational message. It also happens to be a decently long one just to see how everything looks when it has to wrap to multiple lines')
+    messages.success(request, '<strong>Great success!</strong> Whatever you did seems to have worked out!')
+    messages.warning(request, 'Better watch out! This is a warning.')
+    messages.error(request, 'Bad bad bad! Something really awful happened!')
+    messages.add_message(request, 8000, 'Custom message level')
+    return {}
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
 @HtmlView(template='example/foo.tpl')
