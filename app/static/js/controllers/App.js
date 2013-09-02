@@ -92,13 +92,12 @@ App.controllers.App = function($content, $spinner) {
 
   $(document).on('submit', 'form.hijax', function() {
     // Forms are the opposite. By default = no-hijax
-    console.log('hijax this form!');
+    console.log('hijax this form submit!');
 
     var $form = $(this);
     $form.ajaxSubmit({
       data: {'_bare': true },
       success: function(content) {
-        console.log('AJAX SUBMIT SUCCESS:', arguments);
         self.loadContent(content);
       }
     });
