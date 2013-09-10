@@ -18,10 +18,7 @@ urlpatterns = patterns('app.views',
     url(r'^foo/$', 'example.foo', name='foo'),
     url(r'^bar/$', 'example.bar', name='bar'),
 
-    # Uncomment this if you actually add stuff into the api sub app
-    url(r'^a/', include('app.api.urls')),
-
-    # Uncomment the next line to enable the admin:
+    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
     # Some globally annoying URLs that we don't want django spending much time on

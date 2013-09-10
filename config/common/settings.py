@@ -1,11 +1,5 @@
 import django.conf.global_settings as DEFAULT_SETTINGS
-import os, sys
-from jinja2 import Undefined, DebugUndefined, StrictUndefined
-
-import pymysql
-pymysql.install_as_MySQLdb()
-
-# Django settings for green project.
+import os
 
 ENV = ''
 RELEASE_NUM = 1
@@ -23,19 +17,6 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    },
-    'legacy': { } # Connection information for our legacy database
-}
-
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['*']
@@ -49,8 +30,6 @@ TIME_ZONE = 'America/New_York'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
-
-SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -145,28 +124,25 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'app',
-
     'app.core',
-    'app.api',
 
     'coffin',
     'django_assets',
     'widget_tweaks',
+    'djorm_pool',
     # 'debug_toolbar',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     # Uncomment the next line if we are using db backed sessions. Otherwise only the middleware is needed
-    # 'django.contrib.sessions',
-    # Uncomment the next line 
-    # 'django.contrib.sites',
+    'django.contrib.sessions',
+
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
     'suit',
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
 )
 
 # Add our custom context processors to the default list
@@ -174,50 +150,9 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'app.core.context_processors.request',
 )
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
-            'stream': sys.stdout
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['console', 'mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
-
-JINJA2_ENVIRONMENT_OPTIONS = {
-    'autoescape': True,
-    'undefined': Undefined,
-    'auto_reload': True,
-    'cache_size': 1000,
-}
-
 AUTH_USER_MODEL = 'app.User'
 
-# Base authentication configuration
-# LOGIN_URL = 'login'
-# LOGIN_REDIRECT_URL = 'profile'
-# LOGOUT_URL = 'logout'
+# Additional specific settings
+from settings_mysql import *
+from settings_jinja2 import *
+from settings_logging import *

@@ -1,5 +1,6 @@
 Django==1.5.1
 pytz==2013b             # Not "required", but should always be included when dealing with time
+docutils==0.11          # Used for "admindocs" functionality which we have enabled by default for dev
 
 # Template processing
 Coffin==0.3.7           # Makes Jinja2 integration into django pretty seamless
@@ -32,3 +33,5 @@ greenlet==0.4.1
 
 # CMGS fork of PyMySQL which fixes django 1.5 compat issue
 ./ext/pymysql-cmgs.zip
+
+djorm-ext-pool==0.8
