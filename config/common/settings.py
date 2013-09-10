@@ -153,6 +153,5 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
 AUTH_USER_MODEL = 'app.User'
 
 # Additional specific settings
-from settings_mysql import *
 from settings_jinja2 import *
 from settings_logging import *

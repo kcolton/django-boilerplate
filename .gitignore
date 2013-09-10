@@ -2,4 +2,5 @@ ve
 .idea
 *.pyc
 *.sqlite
+*.env
 app/collectedstatic

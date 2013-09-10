@@ -21,6 +21,7 @@ SERVER_EMAIL = 'ken@twubs.com'
 
 JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
 
+
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'lib.django.cache.memcached.ConsistentMemcachedCache',
@@ -30,4 +31,6 @@ JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
 # }
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+from settings_mysql import *
 
