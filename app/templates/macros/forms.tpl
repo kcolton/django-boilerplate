@@ -1,3 +1,5 @@
+{# Inspired by: https://github.com/tzangms/django-bootstrap-form/ #}
+
 {% macro form_row_html(field) %}
   <div class="form-group{{ ' has-error' if field.errors }}" data-field-type="{{ field.field.widget.__class__.__name__ }}">
 
@@ -56,7 +58,7 @@
 
 
 {% macro form_html(form, extra_classes='') %}
-  <form method="POST" class="{{ extra_classes }}" role="form"{{ ' enctype="multipart/form-data' if form.is_multipart }}>
+  <form method="POST" class="{{ extra_classes }}" role="form"{{ ' enctype="multipart/form-data"' if form.is_multipart() }}>
     {{ form_body_html(form) }}
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
