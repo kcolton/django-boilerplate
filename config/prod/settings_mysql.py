@@ -11,7 +11,11 @@ DATABASES = {
         'NAME': '',   # Or path to database file if using sqlite3.
         'USER': os.environ['MYSQL_USER'],
         'PASSWORD': os.environ.get('MYSQL_PASSWORD', None),
-        'HOST': os.environ.get('MYSQL_HOST', None)
+        'HOST': os.environ.get('MYSQL_HOST', None),
+        'OPTIONS': {
+            'connect_timeout': 10,
+            'no_delay': True # Disable nagle's algorithm since within the AWS networking is FAST.
+        }
     }
 }
 
