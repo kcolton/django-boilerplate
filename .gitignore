@@ -3,4 +3,5 @@ ve
 *.pyc
 *.sqlite
 *.env
+*.envc
 app/collectedstatic
