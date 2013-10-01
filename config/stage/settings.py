@@ -1,30 +1,46 @@
+import os
+import pymysql
 from config.common.settings import *
+from boto.s3.connection import OrdinaryCallingFormat
 
 ENV = 'stage'
-DEBUG = TEMPLATE_DEBUG = False
-WSGI_APPLICATION = 'config.stage.wsgi.application'
+DEBUG = TEMPLATE_DEBUG = ASSETS_DEBUG = False
 
-# Uncomment the next line if you wish to use AWS S3 + django-storages + Boto for statics
-# from settings_s3 import *
+pymysql.install_as_MySQLdb()
 
-ADMINS = (
-    ('Errors', 'ken@twubs.com'),
-)
+if not 'MYSQL_DATABASE' in os.environ:
+    raise Exception('Expecting MYSQL_DATABASE environment variable to exist')
 
-# SMTP STTINGS
-EMAIL_HOST = 'smtp.mandrillapp.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'app16994495@heroku.com'
-EMAIL_HOST_PASSWORD = 'FlmoE9aZFA56gxwBs0rVSA'
-EMAIL_USE_TLS = True
-SERVER_EMAIL = 'ken@twubs.com'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ['MYSQL_DATABASE'],
+        'USER': os.environ['MYSQL_USER'],
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD', None),
+        'HOST': os.environ.get('MYSQL_HOST', None),
+        'OPTIONS': {
+            'connect_timeout': 10,
+            # Disable nagle's algorithm. Assumes your networking to DB is FAST.
+            'no_delay': True
+        }
+    }
+}
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#         'LOCATION': 'localhost:11211',
-#         'KEY_PREFIX': ''
-#     }
-# }
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 
-# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# Jinja2 Optimization
+JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
+
+# Static Files to S3
+INSTALLED_APPS += ('storages',)
+
+STATICFILES_STORAGE = 'app.core.s3.StaticRootS3BotoStorage'
+
+AWS_STORAGE_BUCKET_NAME = '%s-%s/%s' % (APP_NAME, ENV, RELEASE_NUM)
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
+
+S3_URL = 'http://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = S3_URL
