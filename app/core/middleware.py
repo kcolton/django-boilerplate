@@ -12,7 +12,8 @@ class CoreMiddleware(object):
 
         response['X-Rel-Num'] = settings.RELEASE_NUM
 
-        if request.IS_BARE and 'Location' in response:
+        if hasattr(request, 'IS_BARE') and request.IS_BARE and 'Location' in response:
+
             # Todo - this parsing seems messy for the python world. Probably something better out there. URLObject?
             url = urlsplit(response['location'])
 
