@@ -2,6 +2,7 @@ from coffin import shortcuts
 from django.template import RequestContext
 from django.http import HttpResponse
 
+
 def render_to_string(request, template, context):
     if request:
         context_instance = RequestContext(request)
@@ -10,7 +11,8 @@ def render_to_string(request, template, context):
 
     return shortcuts.render_to_string(template, context, context_instance)
 
-def render_html(request, template, context={}, mimetype='text/html'):
+
+def render_html(request, template, context={}, content_type='text/html'):
     response = render_to_string(request, template, context)
-    return HttpResponse(response, mimetype=mimetype)
+    return HttpResponse(response, content_type=content_type)
 

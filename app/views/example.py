@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.utils.datetime_safe import datetime
-from lib.django.views.decorators import html_view, json_view
+from lib.django.views.decorators import html_view, json_view, csv_attachment_view
 from django.views.decorators.cache import cache_control
 
 
@@ -103,5 +103,18 @@ def bar(request):
 
 
 @json_view
-def json_test(request):
+def json(request):
     return dict(foo='bar')
+
+
+@csv_attachment_view(filename='things.csv')
+def csv_download(request):
+    rows = [
+        ['Column One', 'Column Two', 'Column Three'],
+        ['Foo', 'Bar', 'Baz'],
+        ['Hamburger', 'Hot Dog', 'Bacon'],
+        ['Beer', 'Wine', 'Whiskey']
+    ]
+
+    return rows
+

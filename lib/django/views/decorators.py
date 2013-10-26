@@ -1,10 +1,12 @@
+import csv
 import ujson as json
 import functools
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.conf import settings
 from lib.django.views.shortcuts import render_html
 
-MIME_JSON = 'application/json; charset=utf-8'
+CONTENT_TYPE_JSON = 'application/json; charset=utf-8'
+CONTENT_TYPE_CSV = 'text/csv'
 
 
 def json_view(view_func=None, allow_jsonp=False):
@@ -43,7 +45,7 @@ def json_view(view_func=None, allow_jsonp=False):
         if allow_jsonp and 'callback' in request.GET:
             json_string = '%s(%s)' % (request.GET['callback'], json_string)
 
-        return response_class(json_string, mimetype=MIME_JSON)
+        return response_class(json_string, content_type=CONTENT_TYPE_JSON)
     return wrapper
 
 
@@ -70,6 +72,34 @@ def html_view(view_func=None, template=None):
         return render_html(request, tpl, output)
 
     return wrapper
+
+
+def csv_attachment_view(view_func=None, filename='spreadsheet.csv'):
+    if view_func is None:
+        return functools.partial(csv_attachment_view, filename=filename)
+
+    @functools.wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        output = view_func(request, *args, **kwargs)
+
+        try:
+            response = HttpResponse(content_type=CONTENT_TYPE_CSV)
+            # Todo - Cleanup filename scrubbing
+            response['Content-Disposition'] = 'attachment; filename="%s"' % filename.replace('\\', '\\\\').replace('"', '\\"').replace("'", "\\'")
+
+            writer = csv.writer(response)
+            for row in output:
+                writer.writerow(row)
+
+        except TypeError:
+            # View output was not iterable. Just return whatever it was
+            return output
+
+        return response
+
+    return wrapper
+
+
 
 
 
