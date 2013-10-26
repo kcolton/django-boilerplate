@@ -4,11 +4,11 @@ from boto.s3.connection import OrdinaryCallingFormat
 
 INSTALLED_APPS += ('storages',)
 
-# Default bucket name that uses APP_NAME-ENV/RELEASE_NUM format which works well in many situations
-# Optional: Add the RELEASE_NUM to the bucket for cache busting
-AWS_STORAGE_BUCKET_NAME = '%s-%s/%s' % (APP_NAME, ENV, RELEASE_NUM)
+# Static files use ReleaseStatics storage which prepends STATIC_PREFIX
+STATICFILES_STORAGE = 'lib.django.files.storage.ReleaseStaticsS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-STATICFILES_STORAGE = 'app.core.s3.StaticRootS3BotoStorage'
+AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, ENV)
 
 # Don't commit these or you may be a sad panda
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
@@ -21,5 +21,7 @@ AWS_QUERYSTRING_AUTH = False
 # OrdinaryCallingFormat = s3.amazonaws.com/bucket instead of bucket.s3.amazonaws.com
 AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
 
+# Use RELEASE_NUM for cache busting
+STATIC_PREFIX = 'static/%d' % RELEASE_NUM
 S3_URL = 'http://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
-STATIC_URL = S3_URL
+STATIC_URL = S3_URL + STATIC_PREFIX

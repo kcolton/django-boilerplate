@@ -35,13 +35,15 @@ JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
 # Static Files to S3
 INSTALLED_APPS += ('storages',)
 
-STATICFILES_STORAGE = 'app.core.s3.StaticRootS3BotoStorage'
+STATICFILES_STORAGE = 'lib.django.files.storage.ReleaseStaticsS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-AWS_STORAGE_BUCKET_NAME = '%s-%s/%s' % (APP_NAME, ENV, RELEASE_NUM)
+AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, ENV)
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
 
+STATIC_PREFIX = 'static/%d' % RELEASE_NUM
 S3_URL = 'http://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
-STATIC_URL = S3_URL
+STATIC_URL = S3_URL + STATIC_PREFIX
