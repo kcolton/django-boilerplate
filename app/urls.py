@@ -18,7 +18,7 @@ urlpatterns = patterns('app.views',
     url(r'^foo/$', 'example.foo', name='foo'),
     url(r'^bar/$', 'example.bar', name='bar'),
 
-    url(r'^csv-download/$', 'example.csv_download', name='csv_download'),
+    url(r'^csv-download/$', 'example.csv_download', name='csv_download_example'),
 
     url(r'^json/$', 'example.json', name='json_example'),
 

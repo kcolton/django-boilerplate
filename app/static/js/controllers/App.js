@@ -19,7 +19,12 @@ App.controllers.App = function($content, $spinner) {
     console.log('loadAjaxContent:', urlOrOptions);
 
     $U.ajax.request(method, urlOrOptions).done(function(data, status, xhr) {
+      console.log('loadAjaxContent success - ', arguments);
       self.loadContent(data);
+    }).fail(function(xhr, textStatus, error) {
+      console.log('loadAjaxContent fail - ', arguments);
+    }).always(function() {
+      console.log('loadAjaxContent always - ', arguments);
     });
   };
 
@@ -51,9 +56,9 @@ App.controllers.App = function($content, $spinner) {
     console.log('instantiateContentViews:', $content);
 
     // Look view views to instantiate, including self. Do this in the most optimized way possible
-    $content.find('._meta-view').andSelf().filter('._meta-view').each(function() {
+    $content.find('[data-app-view]').andSelf().filter('[data-app-view]').each(function() {
       var $viewContainer = $(this),
-        viewName = $viewContainer.data('view');
+        viewName = $viewContainer.data('appView');
 
       console.log('found view:', viewName);
 
@@ -67,6 +72,18 @@ App.controllers.App = function($content, $spinner) {
 
   };
 
+  self.changePage = function(url, postData) {
+    History.pushState(postData, document.title, url);
+  };
+
+  self.startSpinning = function() {
+    dom.$spinner.addClass('spinning');
+  };
+
+  self.stopSpinning = function() {
+    dom.$spinner.removeClass('spinning');
+  };
+
   /**********************************************************************
    * INITIALIZATION
    **********************************************************************/
@@ -77,28 +94,49 @@ App.controllers.App = function($content, $spinner) {
 
   History.Adapter.bind(window, 'statechange', function(e) {
     var state = History.getState();
+
+
+    // No need to send the History.js identifier over to our server. Also remove the crap blank one History added
     var uri = new Uri(state.hash)
       .addQueryParam('_bare', '1')
-      .deleteQueryParam('_suid').deleteQueryParam(''); // No need to send the History.js identifier over to our server. Also remove the crap blank one History added
-      
-    self.loadAjaxContent(uri.toString());
+      .deleteQueryParam('_suid').deleteQueryParam('');
+
+    var method = 'GET';
+    var options = {
+      url: uri.toString()
+    };
+
+    if (state.data && !History.isEmptyObject(state.data)) {
+      options.data = state.data;
+      method = 'POST';
+    }
+
+    self.loadAjaxContent(options, method); // todo - refactor is still in order I think
   });
 
 
-  $(document).on('click', 'a:not(.no-hijax)', function() {
-    History.pushState(null, document.title, $(this).attr('href'));
+  $(document).on('click', 'a[href]:not([data-app-no-hijax],[target])', function(e) {
+    if (e.isDefaultPrevented() || e.isPropagationStopped()) return;
+    self.changePage($(this).attr('href'));
     return false;
   });
 
-  $(document).on('submit', 'form.hijax', function() {
-    // Forms are the opposite. By default = no-hijax
+  $(document).on('submit', 'form[data-app-hijax]', function() {
+    // Forms are the opposite. By default = no hijaxing
     console.log('hijax this form submit!');
 
     var $form = $(this);
     $form.ajaxSubmit({
       data: {'_bare': true },
       success: function(content) {
+        console.log('hijaxForm ajaxSubmit success');
         self.loadContent(content);
+      },
+      error: function(xhr) {
+        console.log('hijaxForm ajaxSubmit error', arguments);
+        if (xhr.responseText) {
+          self.loadContent(xhr.responseText);
+        }
       }
     });
 

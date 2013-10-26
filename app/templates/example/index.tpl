@@ -1,7 +1,9 @@
 {% extends "example/body.tpl" %}
 
+{% import "macros/utils.tpl" as utils %}
+
 {% block content %}
-<div class="_meta-view" data-view="Home">
+<div data-app-view="Home">
   <h1>Hello Boilerplate World!</h1>
   <p>
     <img src="{{ 'img/stick.jpg'|static }}">

@@ -1,19 +1,17 @@
+{% import "macros/utils.tpl" as utils %}
+
 {%
   set tag_alert_map = {
-    'debug': 'alert-info',
-    'info': 'alert-info',
-    'success': 'alert-success',
-    'warning': 'alert-warning',
-    'error': 'alert-danger'
+    'debug': 'info',
+    'info': 'info',
+    'success': 'success',
+    'warning': 'warning',
+    'error': 'danger'
   }
 %}
 
-{% macro as_alerts() %}
-  {# Relies on messages being in the context #}
+{% macro as_alerts() -%}
   {% for message in messages %}
-    <div class="alert {{ tag_alert_map.get(message.tags, 'alert-info') }}">
-      <a class="close" data-dismiss="alert">&times;</a>
-      {{ message|safe }}
-    </div>
+    {{ utils.alert(message, tag_alert_map.get(message.tags, 'info'), closable=True) }}
   {% endfor %}
-{% endmacro %}
+{%- endmacro %}
