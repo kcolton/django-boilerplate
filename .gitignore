@@ -5,3 +5,4 @@ ve
 *.env
 *.envc
 app/collectedstatic
+app/static/dist

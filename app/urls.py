@@ -19,8 +19,8 @@ urlpatterns = patterns('app.views',
     url(r'^bar/$', 'example.bar', name='bar'),
 
     url(r'^csv-download/$', 'example.csv_download', name='csv_download_example'),
-
     url(r'^json/$', 'example.json', name='json_example'),
+    url(r'^error/$', 'example.error', name='error_example'),
 
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
@@ -29,3 +29,6 @@ urlpatterns = patterns('app.views',
     # Please cache this shit out of this
     url(r'^favicon.ico$', RedirectView.as_view(url=staticfiles_storage.url('app/favicon.ico'))),
 )
+
+handler500 = 'app.views.errors.handler500'
+handler404 = 'app.views.errors.handler404'

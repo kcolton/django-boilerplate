@@ -12,7 +12,10 @@ def render_to_string(request, template, context):
     return shortcuts.render_to_string(template, context, context_instance)
 
 
-def render_html(request, template, context={}, content_type='text/html'):
+def render_html(request, template, context=None, content_type='text/html', response_class=None):
+    context = context or dict()
+    response_class = response_class or HttpResponse
+
     response = render_to_string(request, template, context)
-    return HttpResponse(response, content_type=content_type)
+    return response_class(response, content_type=content_type)
 

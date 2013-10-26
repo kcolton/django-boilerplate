@@ -13,8 +13,8 @@ App.controllers.App = function($content, $spinner) {
    **********************************************************************/
 
   self.loadAjaxContent = function(urlOrOptions, method, $container) {
-    if (!$container) { $container = dom.$content; }
-    if (!method) { method = 'GET'; }
+    $container = $container || dom.$content;
+    method = method || 'GET';
 
     console.log('loadAjaxContent:', urlOrOptions);
 
@@ -23,13 +23,16 @@ App.controllers.App = function($content, $spinner) {
       self.loadContent(data);
     }).fail(function(xhr, textStatus, error) {
       console.log('loadAjaxContent fail - ', arguments);
+      if (xhr.responseText) {
+        self.loadContent(xhr.responseText);
+      }
     }).always(function() {
       console.log('loadAjaxContent always - ', arguments);
     });
   };
 
   self.loadContent = function(content, $container) {
-    if (!$container) { $container = dom.$content; }
+    $container = $container || dom.$content;
     console.log('loadContent:', content.length);
 
     var $content = $('<div class="content">' + content.toString() + '</div>');

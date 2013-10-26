@@ -115,6 +115,9 @@ def csv_download(request):
         ['Hamburger', 'Hot Dog', 'Bacon'],
         ['Beer', 'Wine', 'Whiskey']
     ]
-
     return rows
+
+
+def error(request):
+    raise Exception('Oh no! Something went terribly wrong!')
 

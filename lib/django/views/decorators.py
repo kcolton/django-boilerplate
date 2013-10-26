@@ -49,27 +49,28 @@ def json_view(view_func=None, allow_jsonp=False):
     return wrapper
 
 
-def html_view(view_func=None, template=None):
+def html_view(view_func=None, template=None, response_class=None):
     """
     Decorates a dictionary returning view into one that returns a rendered template into an HttpResponse
     Optional constructor params: template=, a template to use, a little cleaner than the dictionary key,
     but not always applicable. A single view function may return different templates depending on the logic
     """
     if view_func is None:
-        return functools.partial(html_view, template=template)
+        return functools.partial(html_view, template=template, response_class=response_class)
 
     @functools.wraps(view_func)
     def wrapper(request, *args, **kwargs):
-        output = view_func(request, *args, **kwargs)
+        context = view_func(request, *args, **kwargs) or dict()
 
-        # Return from function is not a dict? Can't do anything with it, just return it
-        if not isinstance(output, dict):
-            return output
+        if not isinstance(context, dict):
+            # Todo allow Django context object?
+            # Return from function is not a dict? Can't do anything with it, just return it
+            return context
 
         # Use the dictionary TEMPLATE if present, or use the one given in constructor
-        tpl = output.pop('TEMPLATE', template)
+        tpl = context.pop('TEMPLATE', template)
 
-        return render_html(request, tpl, output)
+        return render_html(request, tpl, context=context, response_class=response_class)
 
     return wrapper
 
