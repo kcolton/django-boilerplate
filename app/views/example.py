@@ -4,17 +4,17 @@ from django.contrib import messages
 from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.utils.datetime_safe import datetime
-from lib.django.views.decorators import HtmlView
+from lib.django.views.decorators import html_view, json_view
 from django.views.decorators.cache import cache_control
 
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
-@HtmlView(template='example/index.tpl')
+@html_view(template='example/index.tpl')
 def index(request):
     return {}
 
 
-@HtmlView(template='example/form.tpl')
+@html_view(template='example/form.tpl')
 def form_example(request):
 
     class MyForm(forms.Form):
@@ -69,7 +69,7 @@ def form_example(request):
     }
 
 
-@HtmlView(template='example/messages.tpl')
+@html_view(template='example/messages.tpl')
 def messages_example(request):
     messages.set_level(request, messages.DEBUG)
     messages.debug(request, 'This is a debug message')
@@ -91,14 +91,17 @@ def redirect_external(request):
 
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
-@HtmlView(template='example/foo.tpl')
+@html_view(template='example/foo.tpl')
 def foo(request):
     return {}
 
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
-@HtmlView(template='example/bar.tpl')
+@html_view(template='example/bar.tpl')
 def bar(request):
     return {}
 
 
+@json_view
+def json_test(request):
+    return dict(foo='bar')
