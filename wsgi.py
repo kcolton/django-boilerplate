@@ -14,7 +14,6 @@ application = get_wsgi_application()
 
 from django.conf import settings, global_settings
 
-# Look for red flags
 check_sanity()
 
 if not settings.DEBUG and settings.STATICFILES_STORAGE == global_settings.STATICFILES_STORAGE:
