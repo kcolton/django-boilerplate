@@ -8,16 +8,11 @@ DEBUG = TEMPLATE_DEBUG = ASSETS_DEBUG = False
 
 pymysql.install_as_MySQLdb()
 
-if not 'MYSQL_DATABASE' in os.environ:
-    raise Exception('Expecting MYSQL_DATABASE environment variable to exist')
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ['MYSQL_DATABASE'],
         'USER': os.environ['MYSQL_USER'],
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD', None),
-        'HOST': os.environ.get('MYSQL_HOST', None),
         'OPTIONS': {
             'connect_timeout': 10,
             # Disable nagle's algorithm. Assumes your networking to DB is FAST.
@@ -26,7 +21,13 @@ DATABASES = {
     }
 }
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+if 'MYSQL_HOST' in os.environ:
+    DATABASES['default']['HOST'] = os.environ['MYSQL_HOST']
+
+if 'MYSQL_PASSWORD' in os.environ:
+    DATABASES['default']['PASSWORD'] = os.environ['MYSQL_PASSWORD']
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 # Jinja2 Optimization
 JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False

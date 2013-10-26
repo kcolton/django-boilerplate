@@ -1,6 +1,6 @@
 import os
 
-# Override in a environment specific settings or .env file
+# Override in environment specific settings or .env file
 DEFAULT_SECRET_KEY = 'unsecure_default_secret'
 SECRET_KEY = os.environ.get('SECRET_KEY', DEFAULT_SECRET_KEY)
 

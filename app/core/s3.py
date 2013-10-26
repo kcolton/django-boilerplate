@@ -1,12 +1,10 @@
 from django.utils.timezone import utc, localtime, make_naive, get_current_timezone
- 
 from storages.backends.s3boto import S3BotoStorage
-from boto.s3.key import Key as S3Key
- 
+
 class StaticRootS3BotoStorage(S3BotoStorage):
     #def __init__(self, *args, **kw):
     #    super(StaticRootS3BotoStorage, self).__init__(*args, location='s', **kw)
- 
+
     def modified_time(self, name):
         """
             HACK HACK HACK. For whatever reason S3 timezone doesn't get converted back 

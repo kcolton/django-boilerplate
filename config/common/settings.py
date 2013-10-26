@@ -4,7 +4,7 @@ ENV = ''
 APP_NAME = 'djbp'
 RELEASE_NUM = 1
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # 2 levels up from here
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 TOP_ROOT = os.path.dirname(PROJECT_ROOT)
 APP_ROOT = os.path.join(TOP_ROOT, 'app')
 
@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
@@ -53,8 +52,8 @@ INSTALLED_APPS = (
 )
 
 # Additional specific settings
-from settings_security import *
-from settings_localization import *
-from settings_templates import *
-from settings_static import *
-from settings_logging import *
+from .settings_security import *
+from .settings_localization import *
+from .settings_templates import *
+from .settings_static import *
+from .settings_logging import *
