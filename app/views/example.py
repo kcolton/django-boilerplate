@@ -1,12 +1,17 @@
 from decimal import Decimal
+import logging
+import warnings
 from django import forms
 from django.contrib import messages
 from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.utils.datetime_safe import datetime
+from app.models import User
 from lib.django.views.decorators import html_view, json_view, csv_attachment_view
 from django.views.decorators.cache import cache_control
 
+request_logger = logging.getLogger('django.request')
+logger = logging.getLogger(__name__)
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
 @html_view(template='example/index.tpl', subtitle='Homepage')
@@ -132,4 +137,27 @@ def csv_download(request):
 
 def error(request):
     raise Exception('Oh no! Something went terribly wrong!')
+
+
+@html_view(template='example/log.tpl', subtitle='Log')
+def log(request):
+    request_logger.debug('request_logger debug message')
+    request_logger.info('request_logger info message')
+    request_logger.warning('request_logger warning message')
+    request_logger.error('request_logger error message')
+    request_logger.critical('request_logger critical message')
+
+    logger.debug('module logger debug message')
+    logger.info('module logger info message')
+    logger.warning('module logger warning message')
+    logger.error('module logger error message')
+    logger.critical('module logger critical message')
+
+    warnings.warn('this is about to be depricated. this warning should only be shown once', DeprecationWarning)
+
+    # Trigger SQL to test SQL logging
+    users = User.objects.all().count()
+
+    return dict(manager=logging.Logger.manager)
+
 
