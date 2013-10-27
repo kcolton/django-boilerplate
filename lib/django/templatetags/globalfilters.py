@@ -1,5 +1,6 @@
 from dateutil import parser
-from django import template, forms
+from coffin import template
+from django import forms
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.utils.timezone import get_current_timezone_name
 import pytz

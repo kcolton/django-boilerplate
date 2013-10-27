@@ -21,6 +21,7 @@ App.controllers.App = function($content, $spinner) {
 
     $.ajax(url, options).always(function(dataOrXhr, textStatus, errorOrXhr) {
 
+      // todo - imagine circumstances where these headers are not set and work around
 
       var success = textStatus == 'success',
         error = success ? null : errorOrXhr,
@@ -29,7 +30,10 @@ App.controllers.App = function($content, $spinner) {
         contentType = xhr.getResponseHeader('content-type'),
         location = xhr.getResponseHeader('location'),
         release = xhr.getResponseHeader('x-release'),
-        requestPath = xhr.getResponseHeader('x-request-path');
+        requestPath = xhr.getResponseHeader('x-request-path'),
+        title = xhr.getResponseHeader('x-title');
+
+      document.title = title;
 
       var currentState = History.getState();
 
@@ -39,7 +43,8 @@ App.controllers.App = function($content, $spinner) {
       if (newUri.resource() != currentUri.resource()) {
         // Disconnect between where browser thinks it is, and how it got there. Probably redirect
         console.log('REDIRECT:', currentUri.resource(), '=>', newUri.resource());
-        History.replaceState({_stateChangeComplete: true}, document.title, newUri.resource());
+        History.ignoreNextChange = true; // todo - gah! fix this!
+        History.replaceState(null, title, newUri.resource());
       }
 
       self.loadContent(xhr.responseText);
@@ -55,14 +60,6 @@ App.controllers.App = function($content, $spinner) {
     console.log('loadContent:', content.length);
 
     var $content = $('<div class="content">' + content.toString() + '</div>');
-
-    // Look for a title meta
-    $metaPageTitle = $content.find('._meta-pageTitle');
-    if ($metaPageTitle.length) {
-      console.log('found page title, setting:', $metaPageTitle.text());
-      document.title = $metaPageTitle.text();
-      $metaPageTitle.remove();
-    }
 
     // Inject the html
     $container.html($content);
@@ -118,7 +115,10 @@ App.controllers.App = function($content, $spinner) {
     var state = History.getState();
 
     // This state change has already been taken care of
-    if (state.data._stateChangeComplete) return;
+    if (History.ignoreNextChange) {
+      History.ignoreNextChange = false;
+      return;
+    }
 
     var uri = new URI(state.hash)
       .addQuery('_bare', 'true')

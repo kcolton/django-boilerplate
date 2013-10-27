@@ -2,6 +2,7 @@ from django.conf import settings
 
 import datetime
 
+
 def request(request):
     return {
         'request': request,
@@ -9,6 +10,7 @@ def request(request):
         'POST': request.POST,
         
         'ENV': settings.ENV,
+        'TITLE': settings.TITLE,
         'RELEASE_NUM': settings.RELEASE_NUM,
         'IS_BARE': request.IS_BARE,
         

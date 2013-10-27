@@ -3,6 +3,7 @@ import ujson as json
 import functools
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.conf import settings
+from app import get_title
 from lib.django.views.shortcuts import render_html
 
 CONTENT_TYPE_JSON = 'application/json; charset=utf-8'
@@ -49,14 +50,14 @@ def json_view(view_func=None, allow_jsonp=False):
     return wrapper
 
 
-def html_view(view_func=None, template=None, response_class=None):
+def html_view(view_func=None, template=None, response_class=None, subtitle=None):
     """
     Decorates a dictionary returning view into one that returns a rendered template into an HttpResponse
     Optional constructor params: template=, a template to use, a little cleaner than the dictionary key,
     but not always applicable. A single view function may return different templates depending on the logic
     """
     if view_func is None:
-        return functools.partial(html_view, template=template, response_class=response_class)
+        return functools.partial(html_view, template=template, response_class=response_class, subtitle=subtitle)
 
     @functools.wraps(view_func)
     def wrapper(request, *args, **kwargs):
@@ -69,8 +70,13 @@ def html_view(view_func=None, template=None, response_class=None):
 
         # Use the dictionary TEMPLATE if present, or use the one given in constructor
         tpl = context.pop('TEMPLATE', template)
+        title = get_title(context.pop('SUBTITLE', subtitle))
+        context['TITLE'] = title
 
-        return render_html(request, tpl, context=context, response_class=response_class)
+        response = render_html(request, tpl, context=context, response_class=response_class)
+        response['X-Title'] = title
+
+        return response
 
     return wrapper
 

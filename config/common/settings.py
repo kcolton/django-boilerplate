@@ -4,6 +4,8 @@ ENV = ''
 APP_NAME = 'djbp'
 RELEASE_NUM = 1
 
+TITLE = 'DJBP'
+
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 TOP_ROOT = os.path.dirname(PROJECT_ROOT)
 APP_ROOT = os.path.join(TOP_ROOT, 'app')

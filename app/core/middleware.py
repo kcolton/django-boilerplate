@@ -13,6 +13,9 @@ class CoreMiddleware(object):
         response['X-Release'] = settings.RELEASE_NUM
         response['X-Request-Path'] = request.get_full_path()
 
+        if not response.has_header('X-Title'):
+            response['X-Title'] = settings.TITLE
+
         if hasattr(request, 'IS_BARE') and request.IS_BARE and 'Location' in response:
 
             # Todo - this parsing seems messy for the python world. Probably something better out there. URLObject?

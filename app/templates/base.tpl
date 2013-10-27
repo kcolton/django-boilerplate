@@ -1,4 +1,6 @@
-{% if not IS_BARE %}
+{% if IS_BARE %}
+  {% block content %}{% endblock %}
+{% else %}
 <!DOCTYPE html>
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
@@ -6,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>{% block title %}DJBP{% endblock %}</title>
+    <title>{{ TITLE }}</title>
     <meta name="viewport" content="width=device-width">
 
     {% if ENV == 'local' %}
@@ -51,6 +53,4 @@
     {% block body %}{% endblock %}
   </body>
 </html>
-{% else %}
-{% extends "base_bare.tpl" %}
 {% endif %}

@@ -9,12 +9,12 @@ from django.views.decorators.cache import cache_control
 
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
-@html_view(template='example/index.tpl')
+@html_view(template='example/index.tpl', subtitle='Homepage')
 def index(request):
-    return {}
+    pass
 
 
-@html_view(template='example/form.tpl')
+@html_view(template='example/form.tpl', subtitle='Form')
 def form_example(request):
 
     class MyForm(forms.Form):
@@ -69,7 +69,7 @@ def form_example(request):
     }
 
 
-@html_view(template='example/messages.tpl')
+@html_view(template='example/messages.tpl', subtitle='Messages')
 def messages_example(request):
     messages.set_level(request, messages.DEBUG)
     messages.debug(request, 'This is a debug message')
@@ -78,7 +78,7 @@ def messages_example(request):
     messages.warning(request, 'Better watch out! This is a warning.')
     messages.error(request, 'Bad bad bad! Something really awful happened!')
     messages.add_message(request, 8000, 'Custom message level')
-    return {}
+    pass
 
 
 def redirect_internal(request):
@@ -91,15 +91,15 @@ def redirect_external(request):
 
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
-@html_view(template='example/foo.tpl')
+@html_view(template='example/foo.tpl', subtitle='Foo')
 def foo(request):
-    return {}
+    pass
 
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
-@html_view(template='example/bar.tpl')
+@html_view(template='example/bar.tpl', subtitle='Bar')
 def bar(request):
-    return {}
+    pass
 
 
 @json_view
