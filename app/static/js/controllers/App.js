@@ -25,34 +25,39 @@ App.controllers.App = function($content, $spinner) {
 
       var success = textStatus == 'success',
         error = success ? null : errorOrXhr,
-        xhr = success ? errorOrXhr : dataOrXhr,
-        statusCode = xhr.status,
-        contentType = xhr.getResponseHeader('content-type'),
-        location = xhr.getResponseHeader('location'),
-        release = xhr.getResponseHeader('x-release'),
-        requestPath = xhr.getResponseHeader('x-request-path'),
-        title = xhr.getResponseHeader('x-title');
+        xhr = success ? errorOrXhr : dataOrXhr;
 
-      document.title = title;
-
-      var currentState = History.getState();
-
-      var currentUri = new URI(currentState.url);
-      var newUri = new URI(requestPath).removeQuery('_bare');
-
-      if (newUri.resource() != currentUri.resource()) {
-        // Disconnect between where browser thinks it is, and how it got there. Probably redirect
-        console.log('REDIRECT:', currentUri.resource(), '=>', newUri.resource());
-        History.ignoreNextChange = true; // todo - gah! fix this!
-        History.replaceState(null, title, newUri.resource());
-      }
-
-      self.loadContent(xhr.responseText);
-
-      console.log('loadContentAjax - complete - status:', statusCode, 'requestPath:', requestPath,
-        'current uri:', currentUri.resource(), 'new uri:', newUri.resource(), 'xhr:', xhr,
-        'statusCode:', 'contentType:', contentType, 'location:', location, 'release:', release);
+      self.loadContentFromXhr(xhr);
     });
+  };
+
+  self.loadContentFromXhr = function(xhr) {
+    var statusCode = xhr.status,
+      contentType = xhr.getResponseHeader('content-type'),
+      location = xhr.getResponseHeader('location'),
+      release = xhr.getResponseHeader('x-release'),
+      requestPath = xhr.getResponseHeader('x-request-path'),
+      title = xhr.getResponseHeader('x-title');
+
+    document.title = title;
+
+    var currentState = History.getState();
+
+    var currentUri = new URI(currentState.url);
+    var newUri = new URI(requestPath).removeQuery('_bare');
+
+    if (newUri.resource() != currentUri.resource()) {
+      // Disconnect between where browser thinks it is, and how it got there. Probably redirect
+      console.log('REDIRECT:', currentUri.resource(), '=>', newUri.resource());
+      History.ignoreNextChange = true; // todo - gah! fix this!
+      History.replaceState(null, title, newUri.resource());
+    }
+
+    console.log('loadContentFromXhr - status:', statusCode, 'requestPath:', requestPath,
+      'current uri:', currentUri.resource(), 'new uri:', newUri.resource(), 'xhr:', xhr,
+      'statusCode:', 'contentType:', contentType, 'location:', location, 'release:', release);
+
+    self.loadContent(xhr.responseText);
   };
 
   self.loadContent = function(content, $container) {
@@ -148,17 +153,13 @@ App.controllers.App = function($content, $spinner) {
     console.log('hijax this form submit!');
 
     var $form = $(this);
+
+
     $form.ajaxSubmit({
       data: {'_bare': true },
-      success: function(content) {
-        console.log('hijaxForm ajaxSubmit success');
-        self.loadContent(content);
-      },
-      error: function(xhr) {
-        console.log('hijaxForm ajaxSubmit error', arguments);
-        if (xhr.responseText) {
-          self.loadContent(xhr.responseText);
-        }
+      complete: function(xhr, status) {
+        console.log('hijaxForm ajaxSubmit complete', arguments);
+        self.loadContentFromXhr(xhr);
       }
     });
 

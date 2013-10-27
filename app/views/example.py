@@ -46,17 +46,29 @@ def form_example(request):
         example_integer = forms.IntegerField(initial=3)
         example_multi = forms.MultipleChoiceField(choices=CHOICES, initial=[CHOICE_ONE, CHOICE_TWO])
 
+        example_error = forms.BooleanField(required=False)
+        example_redirect = forms.BooleanField(required=False)
+
         example_hidden = forms.CharField(initial='I am hiding', widget=forms.HiddenInput)
 
         def clean(self):
             cleaned_data = super(MyForm, self).clean()
             if cleaned_data['example_bool']:
                 raise forms.ValidationError('Tricked you! You do not really want to have example bool checked.')
+
             return cleaned_data
 
     if request.method == "POST":
         form = MyForm(request.POST)
         if form.is_valid():
+
+            if form.cleaned_data['example_error']:
+                raise Exception('Ruh roh!')
+
+            if form.cleaned_data['example_redirect']:
+                messages.info(request, 'You have been redirected from a form hijax! How do you feel?')
+                return HttpResponseRedirect(urlresolvers.reverse('messages_example'))
+
             messages.success(request, 'Form saved successfully')
             return HttpResponseRedirect(request.get_full_path())
         else:
