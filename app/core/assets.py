@@ -14,7 +14,7 @@ register('main.js', Bundle(
 
     'js/ext/modernizr.js',
     'js/ext/bootstrap.js',
-    'js/ext/jsuri.js',
+    'js/ext/URI.js',
 
     'js/namespace.js',
 

@@ -10,7 +10,8 @@ class CoreMiddleware(object):
 
     def process_response(self, request, response):
 
-        response['X-Rel-Num'] = settings.RELEASE_NUM
+        response['X-Release'] = settings.RELEASE_NUM
+        response['X-Request-Path'] = request.get_full_path()
 
         if hasattr(request, 'IS_BARE') and request.IS_BARE and 'Location' in response:
 

@@ -12,8 +12,8 @@
         <li><a href="{% url 'messages_example' %}">Messages</a></li>
         <li><a href="{% url 'redirect_internal' %}">Redirect Internal</a></li>
         <li><a href="{% url 'home' %}" data-app-no-hijax>No Hijax</a></li>
-        <li><a href="{% url 'foo' %}">Foo</a></li>
-        <li><a href="{% url 'bar' %}">Bar</a></li>
+        <li><a href="{% url 'foo' %}?sauce=saucy">Foo</a></li>
+        <li><a href="{% url 'bar' %}?cow=moo">Bar</a></li>
         <li><a href="{% url 'json_example' %}" target="_blank">JSON</a></li>
         <li><a href="{% url 'csv_download_example' %}" target="_blank">CSV</a></li>
         <li><a href="{% url 'error_example' %}">500</a></li>

@@ -12,22 +12,41 @@ App.controllers.App = function($content, $spinner) {
    * CONTENT LOADING
    **********************************************************************/
 
-  self.loadAjaxContent = function(urlOrOptions, method, $container) {
+  self.loadContentAjax = function(url, options, $container) {
+    options = options || {};
     $container = $container || dom.$content;
-    method = method || 'GET';
 
-    console.log('loadAjaxContent:', urlOrOptions);
+    console.log('loadContentAjax:', url, options);
+    options.dataType = options.dataType || 'html';
 
-    $U.ajax.request(method, urlOrOptions).done(function(data, status, xhr) {
-      console.log('loadAjaxContent success - ', arguments);
-      self.loadContent(data);
-    }).fail(function(xhr, textStatus, error) {
-      console.log('loadAjaxContent fail - ', arguments);
-      if (xhr.responseText) {
-        self.loadContent(xhr.responseText);
+    $.ajax(url, options).always(function(dataOrXhr, textStatus, errorOrXhr) {
+
+
+      var success = textStatus == 'success',
+        error = success ? null : errorOrXhr,
+        xhr = success ? errorOrXhr : dataOrXhr,
+        statusCode = xhr.status,
+        contentType = xhr.getResponseHeader('content-type'),
+        location = xhr.getResponseHeader('location'),
+        release = xhr.getResponseHeader('x-release'),
+        requestPath = xhr.getResponseHeader('x-request-path');
+
+      var currentState = History.getState();
+
+      var currentUri = new URI(currentState.url);
+      var newUri = new URI(requestPath).removeQuery('_bare');
+
+      if (newUri.resource() != currentUri.resource()) {
+        // Disconnect between where browser thinks it is, and how it got there. Probably redirect
+        console.log('REDIRECT:', currentUri.resource(), '=>', newUri.resource());
+        History.replaceState({_stateChangeComplete: true}, document.title, newUri.resource());
       }
-    }).always(function() {
-      console.log('loadAjaxContent always - ', arguments);
+
+      self.loadContent(xhr.responseText);
+
+      console.log('loadContentAjax - complete - status:', statusCode, 'requestPath:', requestPath,
+        'current uri:', currentUri.resource(), 'new uri:', newUri.resource(), 'xhr:', xhr,
+        'statusCode:', 'contentType:', contentType, 'location:', location, 'release:', release);
     });
   };
 
@@ -98,23 +117,23 @@ App.controllers.App = function($content, $spinner) {
   History.Adapter.bind(window, 'statechange', function(e) {
     var state = History.getState();
 
+    // This state change has already been taken care of
+    if (state.data._stateChangeComplete) return;
 
-    // No need to send the History.js identifier over to our server. Also remove the crap blank one History added
-    var uri = new Uri(state.hash)
-      .addQueryParam('_bare', '1')
-      .deleteQueryParam('_suid').deleteQueryParam('');
+    var uri = new URI(state.hash)
+      .addQuery('_bare', 'true')
+      .removeQuery('_suid'); // remove history.js internal identifier before sending to server
 
-    var method = 'GET';
-    var options = {
-      url: uri.toString()
-    };
+    var options = null;
 
     if (state.data && !History.isEmptyObject(state.data)) {
-      options.data = state.data;
-      method = 'POST';
+      options = {
+        type: 'POST',
+        data: state.data
+      };
     }
 
-    self.loadAjaxContent(options, method); // todo - refactor is still in order I think
+    self.loadContentAjax(uri.toString(), options); // todo - refactor is still in order I think
   });
 
 
