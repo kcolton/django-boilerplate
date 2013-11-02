@@ -20,7 +20,6 @@ django-storages==1.1.8  # Use me + boto for high traffic applications
 boto==2.15.0            # Requires a S3 bucket and proper AWS config. More work, but higher performance
 
 django-debug-toolbar==0.9.4
-ujson==1.33
 yuicompressor==2.4.8
 
 # Server Stuff

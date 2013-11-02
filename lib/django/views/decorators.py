@@ -1,5 +1,5 @@
 import csv
-import ujson as json
+import json
 import functools
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.conf import settings

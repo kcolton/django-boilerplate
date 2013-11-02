@@ -7,6 +7,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group
 from app.models import User
 
+
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all required
     fields, plus a repeated password"""
@@ -49,6 +50,7 @@ class UserChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the 
         # field does not have access to the initial value
         return self.initial['password']
+
 
 class UserAdmin(DefaultUserAdmin):
     # The forms to add and change user instances
