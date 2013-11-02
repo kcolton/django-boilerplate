@@ -50,7 +50,6 @@ INSTALLED_APPS = (
 
     'suit',
     'django.contrib.admin',
-    'django.contrib.admindocs',
 )
 
 # Additional specific settings

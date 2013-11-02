@@ -22,7 +22,6 @@ urlpatterns = patterns('app.views',
     url(r'^error/$', 'example.error', name='error_example'),
     url(r'^log/$', 'example.log', name='log_example'),
 
-    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
     # Some globally annoying URLs that we don't want django spending much time on
