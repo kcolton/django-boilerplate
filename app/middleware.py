@@ -3,7 +3,7 @@ from urllib import urlencode
 from django.conf import settings
 
 
-class CoreMiddleware(object):
+class AppMiddleware(object):
 
     def process_request(self, request):
         request.IS_BARE = '_bare' in request.REQUEST

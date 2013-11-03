@@ -6,8 +6,8 @@ css_filters = []
 
 if not settings.ASSETS_DEBUG:
     css_filters.extend(['less', 'cssrewrite'])
-register('main.js', Bundle(
 
+register('main.js', Bundle(
     'js/ext/jquery/jquery.history.js',
     'js/ext/jquery/jquery.cookie.js',
     'js/ext/jquery/jquery.form.js',
@@ -26,7 +26,8 @@ register('main.js', Bundle(
     'js/views/Home.js',
 
     filters=js_filters,
-    output='dist/main.js'))
+    output='dist/main.js'
+))
 
 register('main.css', Bundle(
     'css/ext/bootstrap/bootstrap.less',
@@ -35,4 +36,4 @@ register('main.css', Bundle(
     output='dist/main.css',
     filters=css_filters,
     extra={'rel': 'stylesheet/less' if settings.ASSETS_DEBUG else 'stylesheet'}
-    ))
+))

@@ -22,7 +22,7 @@ MANAGERS = ADMINS
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
 
-    'app.core.middleware.CoreMiddleware',
+    'app.middleware.AppMiddleware',
 
     # 'django.middleware.csrf.CsrfViewMiddleware',
 
@@ -33,7 +33,6 @@ MIDDLEWARE_CLASSES = (
 
 INSTALLED_APPS = (
     'app',
-    'app.core',
 
     'coffin',
     'django_assets',
