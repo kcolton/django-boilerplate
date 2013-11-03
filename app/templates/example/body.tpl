@@ -1,7 +1,7 @@
 {% extends "base.tpl" %}
 
 {% block body %}
-  <div id="container">
+  <div class="container">
     <nav class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
         <a class="navbar-brand" href="{% url 'home' %}">DJBP</a>

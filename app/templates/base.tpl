@@ -53,6 +53,7 @@
     <div data-app-page>
       {% block body %}{% endblock %}
     </div>
+    <div id="app-spinner"></div>
   </body>
 </html>
 {% endif %}
