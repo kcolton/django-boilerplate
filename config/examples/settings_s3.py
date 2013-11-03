@@ -8,7 +8,7 @@ INSTALLED_APPS += ('storages',)
 STATICFILES_STORAGE = 'lib.django.files.storage.ReleaseStaticsS3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, ENV)
+AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, STORAGE)
 
 # Don't commit these or you may be a sad panda
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']

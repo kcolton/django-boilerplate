@@ -1,6 +1,7 @@
 from urlparse import parse_qs, urlunsplit, urlsplit
 from urllib import urlencode
 from django.conf import settings
+from django.http import HttpResponse
 
 
 class AppMiddleware(object):
@@ -27,6 +28,10 @@ class AppMiddleware(object):
 
                 url = url._replace(query=urlencode(qs))
                 response['Location'] = urlunsplit(url)
-
+            else:
+                # External redirect wil be handled on the front end to avoid XHR x-domain issues
+                meta_redirect_response = HttpResponse()
+                meta_redirect_response['X-External-Redirect'] = response['Location']
+                return meta_redirect_response
 
         return response

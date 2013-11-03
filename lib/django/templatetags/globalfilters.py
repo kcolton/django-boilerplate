@@ -8,6 +8,11 @@ register = template.Library()
 
 
 @register.filter
+def absolute_url(relative, request):
+    return request.build_absolute_uri(relative)
+
+
+@register.filter
 def localtime(dt):
     try:
         timezone = pytz.timezone(get_current_timezone_name())

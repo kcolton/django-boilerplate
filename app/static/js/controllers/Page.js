@@ -3,45 +3,65 @@ App.controllers.Page = function() {
 
   self.get = function(url, params) {
     console.log('page.change url:', url, 'params:', params);
+    if (!self.isInternalUrl(url)) return false;
+
     if (params) {
       url = new URI(url).addQuery(params).toString();
     }
     History.pushState(null, document.title, url);
+
+    return true;
   };
 
   self.post = function(url, data) {
     data = data || {'_post': true}; // Empty object would not trigger post. See statechange handler
     console.log('page.change post:', url, 'data:', data);
+    if (!self.isInternalUrl(url)) return false;
     History.pushState(data, document.title, url);
+  };
+
+  self.isInternalUrl = function(url) {
+    var newUri = new URI(url)
+      , currentUri = new URI(History.getState().url);
+    return !newUri.hostname() || newUri.hostname() == currentUri.hostname();
   };
 
   self.loadFromXhr = function(xhr) {
     var statusCode = xhr.status
       , contentType = xhr.getResponseHeader('content-type')
-      , location = xhr.getResponseHeader('location')
+      , externalRedirect = xhr.getResponseHeader('x-external-redirect')
       , release = xhr.getResponseHeader('x-release')
       , requestPath = xhr.getResponseHeader('x-request-path')
-      , title = xhr.getResponseHeader('x-title');
+      , title = xhr.getResponseHeader('x-title')
+      , currentUri = new URI(History.getState().url).absoluteTo()
+      , newUri = requestPath ? new URI(requestPath).removeQuery('_bare').absoluteTo() : null;
 
-    document.title = title;
+    if (externalRedirect) {
+      window.location = externalRedirect;
+      return;
+    }
 
-    var currentState = History.getState();
+    if (title) {
+      document.title = title;
+    }
 
-    var currentUri = new URI(currentState.url);
-    var newUri = new URI(requestPath).removeQuery('_bare');
+    if (!newUri) {
+      console.log('warning: received no x-request-path header:', xhr);
+    }
 
-    if (newUri.resource() != currentUri.resource()) {
+    if (newUri && newUri.resource() != currentUri.resource()) {
       // Disconnect between where browser thinks it is, and how it got there. Probably redirect
       console.log('REDIRECT:', currentUri.resource(), '=>', newUri.resource());
+
       History.ignoreNextChange = true; // todo - gah! fix this!
       History.replaceState(null, title, newUri.resource());
     }
 
     console.log('loadContentFromXhr - status:', statusCode, 'requestPath:', requestPath,
-      'current uri:', currentUri.resource(), 'new uri:', newUri.resource(), 'xhr:', xhr,
-      'statusCode:', 'contentType:', contentType, 'location:', location, 'release:', release);
+      'current uri:', currentUri, 'new uri:', newUri, 'xhr:', xhr,
+      'statusCode:', 'contentType:', contentType, 'release:', release);
 
-    app.loadPage(xhr.responseText);
+    app.loadPage(xhr.responseText, contentType);
   };
 
   History.Adapter.bind(window, 'statechange', function(e) {
@@ -59,7 +79,7 @@ App.controllers.Page = function() {
       .removeQuery('_suid'); // remove history.js internal identifier before sending to server
 
     var options = {
-      'dataType': 'html'
+      type: 'GET'
     };
 
     if (state.data && !History.isEmptyObject(state.data)) {

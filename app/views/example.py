@@ -104,7 +104,7 @@ def redirect_internal(request):
 
 
 def redirect_external(request):
-    return HttpResponseRedirect('http://www.youtube.com/watch?v=GP5D2apU2SE')
+    return HttpResponseRedirect('https://github.com/kcolton/django-boilerplate')
 
 
 @cache_control(public=True, s_maxage=3600, max_age=3600)
@@ -163,6 +163,10 @@ def log(request):
 
 @html_view(template='example/info.tpl', subtitle='Info')
 def info(request):
+    pass
+
+@html_view(template='example/links.tpl', subtitle='Links')
+def links(request):
     pass
 
 

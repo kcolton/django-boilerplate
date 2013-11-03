@@ -40,7 +40,7 @@ INSTALLED_APPS += ('storages',)
 STATICFILES_STORAGE = 'lib.django.files.storage.ReleaseStaticsS3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, ENV)
+AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, STORAGE)
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_QUERYSTRING_AUTH = False
