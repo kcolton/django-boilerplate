@@ -5,7 +5,7 @@ ENV = 'local'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(TOP_ROOT, 'db.sqlite'),
+        'NAME': os.path.join(PROJECT_ROOT, 'data', 'db.sqlite'),
     }
 }
 

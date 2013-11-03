@@ -6,9 +6,8 @@ RELEASE_NUM = 1
 
 TITLE = 'DJBP'
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-TOP_ROOT = os.path.dirname(PROJECT_ROOT)
-APP_ROOT = os.path.join(TOP_ROOT, 'app')
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+APP_ROOT = os.path.join(PROJECT_ROOT, 'app')
 
 TEMPLATE_DEBUG = DEBUG = ASSETS_DEBUG = True
 
@@ -16,8 +15,7 @@ WSGI_APPLICATION = 'wsgi.application'
 ROOT_URLCONF = 'app.urls'
 AUTH_USER_MODEL = 'app.User'
 
-ADMINS = ()
-MANAGERS = ADMINS
+MANAGERS = ADMINS = ()
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
