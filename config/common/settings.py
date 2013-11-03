@@ -24,7 +24,6 @@ MIDDLEWARE_CLASSES = (
 
     'app.core.middleware.CoreMiddleware',
 
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -40,7 +39,6 @@ INSTALLED_APPS = (
     'django_assets',
     'widget_tweaks',
     # 'djorm_pool',
-    # 'debug_toolbar',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
