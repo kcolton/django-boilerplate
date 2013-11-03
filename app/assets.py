@@ -15,7 +15,7 @@ register('main.js', Bundle(
     'js/ext/modernizr.js',
     'js/ext/bootstrap.js',
     'js/ext/URI.js',
-
+    'js/ext/moment.js',
 
     'js/utils/Functions.js',
 
@@ -25,6 +25,7 @@ register('main.js', Bundle(
     'js/controllers/Page.js',
     'js/controllers/App.js',
     'js/behaviors/hijax.js',
+    'js/behaviors/ui.js',
 
     'js/views/Home.js',
 
