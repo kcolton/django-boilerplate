@@ -16,13 +16,16 @@ register('main.js', Bundle(
     'js/ext/bootstrap.js',
     'js/ext/URI.js',
 
-    'js/namespace.js',
 
     'js/utils/Functions.js',
-    'js/utils/Ajax.js',
 
+    'js/namespace.js',
+
+    'js/controllers/View.js',
+    'js/controllers/Page.js',
     'js/controllers/App.js',
-    
+    'js/behaviors/hijax.js',
+
     'js/views/Home.js',
 
     filters=js_filters,

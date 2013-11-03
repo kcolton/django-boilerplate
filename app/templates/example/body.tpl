@@ -21,8 +21,6 @@
         <li><a href="{% url 'log_example' %}">Log</a></li>
       </ul>
     </nav>
-    <div id="app-content">
-      {% block content %}{% endblock %}
-    </div>
+    {% block content %}{% endblock %}
   </div>
 {% endblock %}

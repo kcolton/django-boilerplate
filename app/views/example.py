@@ -161,3 +161,8 @@ def log(request):
     return dict(manager=logging.Logger.manager)
 
 
+@html_view(template='example/info.tpl', subtitle='Info')
+def info(request):
+    pass
+
+

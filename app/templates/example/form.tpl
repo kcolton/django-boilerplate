@@ -6,5 +6,5 @@
 {% block content %}
   <h1>Form Example</h1>
   {{ msgs.as_alerts() }}
-  {{ forms.form_html(form, extra_attrs={'data-app-hijax':none})|safe }}
+  {{ forms.form_html(form)|safe }}
 {% endblock %}

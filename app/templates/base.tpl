@@ -1,5 +1,5 @@
 {% if IS_BARE %}
-  {% block content %}{% endblock %}
+  {% extends 'base_bare.tpl' %}
 {% else %}
 <!DOCTYPE html>
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -42,7 +42,7 @@
 
     <script>
     $(function() {
-      $RC.app = new $C.App($('#app-content'), $('#app-spinner'));
+      window.app = new App.controllers.App();
     });
     </script>
 
@@ -50,7 +50,9 @@
     {% block head_tags %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
-    {% block body %}{% endblock %}
+    <div data-app-page>
+      {% block body %}{% endblock %}
+    </div>
   </body>
 </html>
 {% endif %}

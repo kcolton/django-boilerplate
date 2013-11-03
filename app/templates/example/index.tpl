@@ -11,5 +11,12 @@
   <p>
     <a href="{% url 'foo' %}" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Sauce!</a>
   </p>
+  <h2>Manual Page Change</h2>
+  <p>
+    <button class="btn btn-default get-params">GET w/ Params</button>
+    <button class="btn btn-default get-no-params">GET w/ No Params</button>
+    <button class="btn btn-default post-data">POST w/ Data</button>
+    <button class="btn btn-default post-no-data">POST w/ No Data</button>
+  </p>
 </div>
 {% endblock %}
