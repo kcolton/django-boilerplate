@@ -18,13 +18,15 @@ except ValueError:
     APP_CONFIG = os.environ.get('APP_CONFIG', 'local')
 
 print "MANAGE APP_CONFIG:%s" % APP_CONFIG
+os.environ['APP_CONFIG'] = APP_CONFIG
 
-settings_module = 'config.%s.settings' % APP_CONFIG
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
-# Merge in .env files to os.environ.
+# Merge in .env files to os.environ
 utils.dotenv_load('config/common/.env')
 utils.dotenv_load('config/%s/.env' % APP_CONFIG)
+
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 
 # Look for red flags
 check_sanity()

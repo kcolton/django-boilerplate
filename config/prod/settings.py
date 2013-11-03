@@ -3,10 +3,12 @@ import pymysql
 from config.common.settings import *
 from boto.s3.connection import OrdinaryCallingFormat
 
-ENV = 'prod'
-DEBUG = TEMPLATE_DEBUG = ASSETS_DEBUG = False
-
 pymysql.install_as_MySQLdb()
+
+ENV = ENV_PROD
+STORAGE = STORAGE_PROD
+
+DEBUG = TEMPLATE_DEBUG = ASSETS_DEBUG = False
 
 DATABASES = {
     'default': {

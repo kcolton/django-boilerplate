@@ -1,6 +1,7 @@
 import os
+from .environments import *
 
-ENV = ''
+ENV = ENV_LOCAL
 APP_NAME = 'djbp'
 RELEASE_NUM = 1
 

@@ -1,3 +1,4 @@
 from config.prod.settings import *
 
-ENV = 'stage'
+ENV = ENV_STAGE
+STORAGE = STORAGE_PROD
