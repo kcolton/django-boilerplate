@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width">
 
     {% if ENV == 'local' %}
-    <script src="{{ 'js/ext/jquery/jquery.js'|static }}"></script>
+    <script src="{% static 'js/ext/jquery/jquery.js' %}"></script>
     {% else %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     {% endif %}
@@ -37,7 +37,7 @@
     <script>
       var less = { env: 'development' };
     </script>
-    <script src="{{ 'js/ext/less.js'|static }}"></script>
+    <script src="{% static 'js/ext/less.js' %}"></script>
     {% endif %}
 
     <script>

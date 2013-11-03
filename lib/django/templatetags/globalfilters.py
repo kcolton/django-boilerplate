@@ -1,16 +1,10 @@
 from dateutil import parser
 from coffin import template
 from django import forms
-from django.contrib.staticfiles.storage import staticfiles_storage
 from django.utils.timezone import get_current_timezone_name
 import pytz
 
 register = template.Library()
-
-
-@register.filter
-def static(path):
-    return staticfiles_storage.url(path)
 
 
 @register.filter

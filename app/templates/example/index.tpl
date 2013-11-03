@@ -6,10 +6,10 @@
 <div data-app-view="Home">
   <h1>Hello Boilerplate World!</h1>
   <p>
-    <img src="{{ 'img/stick.jpg'|static }}">
+    <img src="{% static 'img/stick.jpg' %}">
   </p>
   <p>
-    <a href="{% url 'foo' %}" class="btn btn-primary"><i class="icon icon-heart"></i> Sauce!</a>
+    <a href="{% url 'foo' %}" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Sauce!</a>
   </p>
 </div>
 {% endblock %}
