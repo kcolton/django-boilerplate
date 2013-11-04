@@ -31,10 +31,8 @@ if 'MYSQL_PASSWORD' in os.environ:
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
-# Jinja2 Optimization
 JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
 
-# Static Files to S3
 INSTALLED_APPS += ('storages',)
 
 STATICFILES_STORAGE = 'lib.django.files.storage.ReleaseStaticsS3BotoStorage'

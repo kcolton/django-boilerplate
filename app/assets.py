@@ -34,7 +34,6 @@ register('main.js', Bundle(
 ))
 
 register('main.css', Bundle(
-    'css/ext/bootstrap/bootstrap.less',
     'css/main.less',
 
     output='dist/main.css',

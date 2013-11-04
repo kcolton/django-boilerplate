@@ -1,6 +1,4 @@
 import logging
-import sys
-
 
 # Note: If you are using foreman. Make sure to have PYTHONUNBUFFERED="True" in your .env file
 # Otherwise, you will not see stdout or stderr output

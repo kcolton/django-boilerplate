@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 
@@ -15,6 +17,8 @@ urlpatterns = patterns('app.views',
     # Please cache this shit out of this
     url(r'^favicon.ico$', RedirectView.as_view(url=staticfiles_storage.url('app/favicon.ico'))),
 )
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler500 = 'app.views.errors.handler500'
 handler404 = 'app.views.errors.handler404'

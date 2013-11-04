@@ -31,6 +31,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 INSTALLED_APPS = (
+    'lib.django',
     'app',
 
     'coffin',
