@@ -92,9 +92,6 @@
 {% macro field(form_field, label_col='col-md-4', input_col='col-md-8', datetime_col='col-sm-6 col-md-4', full_col='col-md-12') %}
   {# Look at the type of field widget to see how to render it #}
 
-  <div class="label_col"></div>
-
-
   {% if form_field|is_checkbox %}
     <div class="{{ label_col }}"></div>
     <div class="{{ input_col }} form-group{{ ' has-error' if form_field.errors }}">
