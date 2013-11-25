@@ -2,8 +2,7 @@
 import os
 import sys
 from django.core.management import execute_from_command_line
-from lib import utils
-from lib.django.utils.sanity import check_sanity
+from django_boilerplate.utils import safety_check, dotenv_load
 
 if __name__ != '__main__':
     raise Exception("manage.py should be run directly and not be imported")
@@ -22,14 +21,13 @@ os.environ['APP_CONFIG'] = APP_CONFIG
 
 
 # Merge in .env files to os.environ
-utils.dotenv_load('config/common/.env')
-utils.dotenv_load('config/%s/.env' % APP_CONFIG)
+dotenv_load('config/common/.env')
+dotenv_load('config/%s/.env' % APP_CONFIG)
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 
-# Look for red flags
-check_sanity()
+safety_check()
 
 print "Executing from command line:%s" % sys.argv
 execute_from_command_line(sys.argv)

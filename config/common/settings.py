@@ -14,14 +14,14 @@ TEMPLATE_DEBUG = DEBUG = ASSETS_DEBUG = True
 
 WSGI_APPLICATION = 'wsgi.application'
 ROOT_URLCONF = 'app.urls'
-AUTH_USER_MODEL = 'app.User'
+AUTH_USER_MODEL = 'django_boilerplate.User'
 
 MANAGERS = ADMINS = ()
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
 
-    'app.middleware.AppMiddleware',
+    'django_hijax.Middleware',
 
     # 'django.middleware.csrf.CsrfViewMiddleware',
 
@@ -31,13 +31,13 @@ MIDDLEWARE_CLASSES = (
 )
 
 INSTALLED_APPS = (
-    'lib.django',
+    'django_hijax',
+    'django_boilerplate',
     'app',
 
     'coffin',
     'django_assets',
     'widget_tweaks',
-    # 'djorm_pool',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',

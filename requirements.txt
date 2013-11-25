@@ -3,7 +3,6 @@ pytz==2013.7            # Not "required", but should always be included when dea
 python-dateutil==2.1
 
 PyMySQL==0.6.1          # Pure python mysql
-# djorm-ext-pool==0.8   # Connection pooling via SQLAlchemy
 
 Coffin==0.3.8           # Makes Jinja2 integration into django pretty seamless
 Jinja2==2.7.1           # Higher performance and generally better template system

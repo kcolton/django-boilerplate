@@ -9,7 +9,8 @@ TEMPLATE_LOADERS = (
 
 # Add our custom context processors to the default list
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'app.context_processors.request',
+    'django_boilerplate.context_processor',
+    'django_hijax.context_processor',
 )
 
 # Jinja2 Optimizations

@@ -1,6 +1,6 @@
 import os
 from django.core.wsgi import get_wsgi_application
-from lib.django.utils.sanity import check_sanity
+from django_boilerplate.utils import safety_check
 
 APP_CONFIG = os.environ.get('APP_CONFIG', 'local')
 print "WSGI APP_CONFIG:%s" % APP_CONFIG
@@ -14,7 +14,7 @@ application = get_wsgi_application()
 
 from django.conf import settings, global_settings
 
-check_sanity()
+safety_check()
 
 if not settings.DEBUG and settings.STATICFILES_STORAGE == global_settings.STATICFILES_STORAGE:
     # If we are using default staticfiles storage and not in DEBUG, serve through Cling WSGI middleware

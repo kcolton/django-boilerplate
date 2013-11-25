@@ -35,7 +35,7 @@ JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
 
 INSTALLED_APPS += ('storages',)
 
-STATICFILES_STORAGE = 'lib.django.files.storage.ReleaseStaticsS3BotoStorage'
+STATICFILES_STORAGE = 'django_boilerplate.django_components.files.storage.ReleaseStaticsS3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, STORAGE)
