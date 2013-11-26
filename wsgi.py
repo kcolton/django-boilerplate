@@ -1,5 +1,5 @@
 import os
-from django.core.wsgi import get_wsgi_application
+
 from django_boilerplate.utils import safety_check
 
 APP_CONFIG = os.environ.get('APP_CONFIG', 'local')
@@ -8,8 +8,11 @@ print "WSGI APP_CONFIG:%s" % APP_CONFIG
 settings_module = 'config.%s.settings' % APP_CONFIG
 
 # Defer to DJANGO_SETTINGS_MODULE env var if it exits
+os.environ.setdefault('DJANGO_CONFIGURATION', APP_CONFIG)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
+
+from configurations.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
 from django.conf import settings, global_settings

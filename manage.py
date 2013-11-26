@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
-from django.core.management import execute_from_command_line
+
 from django_boilerplate.utils import safety_check, dotenv_load
 
 if __name__ != '__main__':
@@ -14,18 +14,17 @@ try:
 except IndexError:
     raise Exception("You must supply a configuration with --app-config")
 except ValueError:
-    APP_CONFIG = os.environ.get('APP_CONFIG', 'local')
+    APP_CONFIG = os.environ.get('APP_CONFIG', 'Local')
 
 print "MANAGE APP_CONFIG:%s" % APP_CONFIG
+os.environ['DJANGO_CONFIGURATION'] = APP_CONFIG
 os.environ['APP_CONFIG'] = APP_CONFIG
-
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 
 # Merge in .env files to os.environ
-dotenv_load('config/common/.env')
-dotenv_load('config/%s/.env' % APP_CONFIG)
+dotenv_load('envs/%s.env' % APP_CONFIG)
 
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+from configurations.management import execute_from_command_line
 
 safety_check()
 
