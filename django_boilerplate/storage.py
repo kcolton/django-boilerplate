@@ -1,5 +1,5 @@
-from django.utils.timezone import utc, localtime, make_naive, get_current_timezone
 from storages.backends.s3boto import S3BotoStorage
+from django.utils.timezone import utc, localtime, make_naive, get_current_timezone
 from django.conf import settings
 
 

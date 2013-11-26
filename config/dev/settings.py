@@ -1,4 +1,5 @@
-from config.common.settings import *
+from ..common import environments
+from ..common.settings import *
 
-ENV = ENV_DEV
-STORAGE = STORAGE_DEV
+ENV = environments.ENV_DEV
+STORAGE = environments.STORAGE_DEV

@@ -5,7 +5,7 @@ from boto.s3.connection import OrdinaryCallingFormat
 INSTALLED_APPS += ('storages',)
 
 # Static files use ReleaseStatics storage which prepends STATIC_PREFIX
-STATICFILES_STORAGE = 'django_boilerplate.django_components.files.storage.ReleaseStaticsS3BotoStorage'
+STATICFILES_STORAGE = 'django_boilerplate.storage.ReleaseStaticsS3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, STORAGE)

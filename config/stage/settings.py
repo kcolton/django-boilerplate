@@ -1,2 +1,4 @@
-from config.prod.settings import *
-ENV = ENV_STAGE
+from ..common import environments
+from ..prod.settings import *
+
+ENV = environments.ENV_STAGE

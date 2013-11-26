@@ -1,4 +1,3 @@
-import importlib
 import os
 
 config_settings = 'config.%s.settings' % os.environ['APP_CONFIG']

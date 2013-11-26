@@ -11,7 +11,7 @@ from django.views.decorators.cache import cache_control
 from django_hijax.view_decorators import set_title
 
 from ..models import User
-from ..django_components.views.decorators import html_view, json_view, csv_attachment_view
+from ..view_decorators import html_view, json_view, csv_attachment_view
 from .. import get_title
 
 request_logger = logging.getLogger('django.request')

@@ -1,7 +1,10 @@
 import os
-from .environments import *
 
-ENV = ENV_LOCAL
+from django_boilerplate.config import defaults
+
+from . import environments
+
+ENV = environments.ENV_LOCAL
 APP_NAME = 'djbp'
 RELEASE_NUM = 1
 
@@ -17,18 +20,6 @@ ROOT_URLCONF = 'app.urls'
 AUTH_USER_MODEL = 'django_boilerplate.User'
 
 MANAGERS = ADMINS = ()
-
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-
-    'django_hijax.Middleware',
-
-    # 'django.middleware.csrf.CsrfViewMiddleware',
-
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-)
 
 INSTALLED_APPS = (
     'django_hijax',
@@ -49,9 +40,48 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 )
 
-# Additional specific settings
-from .settings_security import *
-from .settings_localization import *
-from .settings_templates import *
-from .settings_static import *
-from .settings_logging import *
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+
+    'django_hijax.Middleware',
+
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = defaults.CONTEXT_PROCESSORS
+TEMPLATE_LOADERS = defaults.TEMPLATE_LOADERS
+STATICFILES_FINDERS = defaults.STATICFILES_FINDERS
+LOGGING = defaults.LOGGING
+JINJA2_ENVIRONMENT_OPTIONS = defaults.JINJA2_ENVIRONMENT_OPTIONS_DEV
+
+# Localization
+
+TIME_ZONE = 'America/New_York'
+LANGUAGE_CODE = 'en-us'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+# Security
+
+# Override in environment specific settings or .env file
+DEFAULT_SECRET_KEY = 'unsecure_default_secret'
+SECRET_KEY = os.environ.get('SECRET_KEY', DEFAULT_SECRET_KEY)
+
+ALLOWED_HOSTS = ['*']
+
+# Assets & Statics
+
+ASSETS_ROOT = os.path.join(APP_ROOT, 'static')  # Build into app static folder so both local and collect static works
+ASSETS_AUTO_BUILD = False
+ASSETS_URL_EXPIRE = False
+ASSETS_CACHE = False
+ASSETS_MANIFEST = False
+
+STATIC_ROOT = os.path.join(APP_ROOT, 'collectedstatic')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(APP_ROOT, 'media')
+MEDIA_URL = '/media/'

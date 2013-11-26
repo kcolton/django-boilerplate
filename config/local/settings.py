@@ -1,8 +1,8 @@
-from config.common.settings import *
+from ..common import environments
+from ..common.settings import *
 
-ENV = ENV_LOCAL
-STORAGE = STORAGE_LOCAL
-
+ENV = environments.ENV_LOCAL
+STORAGE = environments.STORAGE_LOCAL
 
 DATABASES = {
     'default': {

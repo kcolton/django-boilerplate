@@ -1,12 +1,16 @@
 import os
 import pymysql
-from config.common.settings import *
+
 from boto.s3.connection import OrdinaryCallingFormat
+from django_boilerplate.config import defaults
+
+from ..common import environments
+from ..common.settings import *
 
 pymysql.install_as_MySQLdb()
 
-ENV = ENV_PROD
-STORAGE = STORAGE_PROD
+ENV = environments.ENV_PROD
+STORAGE = environments.STORAGE_PROD
 
 DEBUG = TEMPLATE_DEBUG = ASSETS_DEBUG = False
 
@@ -16,7 +20,7 @@ DATABASES = {
         'NAME': os.environ['MYSQL_DATABASE'],
         'USER': os.environ['MYSQL_USER'],
         'OPTIONS': {
-            'connect_timeout': 10,
+            'connect_timeout': 5,
             # Disable nagle's algorithm. Assumes your networking to DB is FAST.
             'no_delay': True
         }
@@ -31,11 +35,9 @@ if 'MYSQL_PASSWORD' in os.environ:
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
-JINJA2_ENVIRONMENT_OPTIONS['auto_reload'] = False
-
 INSTALLED_APPS += ('storages',)
 
-STATICFILES_STORAGE = 'django_boilerplate.django_components.files.storage.ReleaseStaticsS3BotoStorage'
+STATICFILES_STORAGE = 'django_boilerplate.storage.ReleaseStaticsS3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 AWS_STORAGE_BUCKET_NAME = '%s-%s' % (APP_NAME, STORAGE)
@@ -47,3 +49,5 @@ AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
 STATIC_PREFIX = 'static/%d/' % RELEASE_NUM
 S3_URL = 'http://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = S3_URL + STATIC_PREFIX
+
+JINJA2_ENVIRONMENT_OPTIONS = defaults.JINJA2_ENVIRONMENT_OPTIONS_RELEASE

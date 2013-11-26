@@ -3,7 +3,7 @@ import logging
 from django.http import HttpResponseServerError, HttpResponseNotFound
 from django_hijax.view_decorators import set_title
 
-from ..django_components.views.decorators import html_view
+from ..view_decorators import html_view
 from .. import get_title
 
 logger = logging.getLogger('django.request')

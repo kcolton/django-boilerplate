@@ -1,9 +1,11 @@
 import csv
 import json
 import functools
+
 from django.http import HttpResponse, HttpResponseServerError
 from django.conf import settings
-from django_boilerplate.django_components.views.shortcuts import render_html
+
+from .view_shortcuts import render_html
 
 CONTENT_TYPE_JSON = 'application/json; charset=utf-8'
 CONTENT_TYPE_CSV = 'text/csv'
