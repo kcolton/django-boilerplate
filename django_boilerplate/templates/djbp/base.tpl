@@ -25,11 +25,11 @@
       {% if DEBUG %}DEBUG = 1;{% endif -%}
     </script>
 
-    {% assets "main.js" %}<script src="{{ ASSET_URL }}"></script>
-    {% endassets %}
+{#    {% assets "main.js" %}<script src="{{ ASSET_URL }}"></script>#}
+{#    {% endassets %}#}
 
-    {% assets "main.css" %}<link rel="{{ EXTRA.rel }}" type="text/css" href="{{ ASSET_URL }}" />
-    {% endassets %}
+    {% compressed_js 'main' %}
+    {% compressed_css 'main' %}
 
     {% if ASSETS_DEBUG %}
     <script>

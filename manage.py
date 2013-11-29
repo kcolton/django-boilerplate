@@ -26,7 +26,7 @@ dotenv_load('envs/%s.env' % APP_CONFIG)
 
 from configurations.management import execute_from_command_line
 
-safety_check()
+# safety_check()
 
 print "Executing from command line:%s" % sys.argv
 execute_from_command_line(sys.argv)

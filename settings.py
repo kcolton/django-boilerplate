@@ -2,6 +2,7 @@ import os
 
 from configurations import Configuration, values
 from django_boilerplate.config import defaults
+from django_boilerplate import assets
 
 
 ENV_LOCAL = 'local'
@@ -17,7 +18,7 @@ STORAGE_PROD = 'prod'
 class Base(Configuration):
     ENV = ENV_LOCAL
     APP_NAME = 'djbp'
-    RELEASE_NUM = 1
+    RELEASE_NUM = 2
 
     TITLE = 'DJBP'
 
@@ -39,6 +40,7 @@ class Base(Configuration):
 
         'coffin',
         'django_assets',
+        'pipeline',
         'widget_tweaks',
 
         'django.contrib.auth',
@@ -98,6 +100,26 @@ class Base(Configuration):
     MEDIA_ROOT = os.path.join(APP_ROOT, 'media')
     MEDIA_URL = '/media/'
 
+    PIPELINE_CSS = {
+        'main': {
+            'source_filenames': assets.CSS_ASSETS,
+            'output_filename': 'dist/main.css',
+        },
+    }
+
+    PIPELINE_JS = {
+        'main': {
+            'source_filenames': assets.JS_ASSETS,
+            'output_filename': 'dist/main.js',
+        },
+    }
+
+    JINJA2_EXTENSIONS = [
+        'pipeline.jinja2.ext.PipelineExtension'
+    ]
+
+    PIPELINE_ENABLED = False
+
 
 class Local(Base):
     ENV = ENV_LOCAL
@@ -116,6 +138,12 @@ class Local(Base):
 class Dev(Base):
     ENV = ENV_DEV
     STORAGE = STORAGE_DEV
+
+    PIPELINE_ENABLED = True
+    PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
+    PIPELINE_CSS_COMPRESSOR = None
+    PIPELINE_COMPILERS = ('pipeline.compilers.less.LessCompiler',)
+    STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 
 class Prod(Base):
@@ -159,6 +187,11 @@ class Prod(Base):
     SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
     INSTALLED_APPS = Base.INSTALLED_APPS + ('storages',)
+
+    PIPELINE_ENABLED = True
+    PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
+    PIPELINE_CSS_COMPRESSOR = None
+    PIPELINE_COMPILERS = ('pipeline.compilers.less.LessCompiler',)
 
     STATICFILES_STORAGE = 'django_boilerplate.storage.ReleaseStaticsS3BotoStorage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'

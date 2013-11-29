@@ -1,9 +1,10 @@
+from pipeline.storage import PipelineMixin
 from storages.backends.s3boto import S3BotoStorage
 from django.utils.timezone import utc, localtime, make_naive, get_current_timezone
 from django.conf import settings
 
 
-class ReleaseStaticsS3BotoStorage(S3BotoStorage):
+class ReleaseStaticsS3BotoStorage(PipelineMixin, S3BotoStorage):
 
     def __init__(self, *args, **kwargs):
         super(ReleaseStaticsS3BotoStorage, self).__init__(*args, location=settings.STATIC_PREFIX, **kwargs)

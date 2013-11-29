@@ -4,6 +4,6 @@ JS_ASSETS = (
     'django_hijax/hijax.js',
 )
 
-STYLE_ASSETS = (
+CSS_ASSETS = (
     'django_hijax/hijax.css',
 )
