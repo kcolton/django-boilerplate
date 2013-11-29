@@ -7,7 +7,7 @@ from django.http import HttpResponse
 def context_processor(request):
     return {
         'IS_BARE': request.is_bare,
-        'TITLE': request.title,
+        'TITLE': getattr(request, 'title', None),
     }
 
 
