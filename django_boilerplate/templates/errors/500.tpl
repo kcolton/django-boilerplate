@@ -1,5 +1,5 @@
-{% extends "example/body.tpl" %}
+{% extends "base.tpl" %}
 
-{% block content %}
+{% block body %}
 <h1>Oops! Something went wrong!</h1>
 {% endblock %}

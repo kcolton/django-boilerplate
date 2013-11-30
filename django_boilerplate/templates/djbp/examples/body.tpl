@@ -1,4 +1,4 @@
-{% extends "djbp/base.tpl" %}
+{% extends "base.tpl" %}
 
 {% block body %}
   <div class="container">

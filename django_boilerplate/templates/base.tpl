@@ -1,5 +1,5 @@
 {% if IS_BARE %}
-  {% extends 'djbp/base_bare.tpl' %}
+  {% extends 'base_bare.tpl' %}
 {% else %}
 <!DOCTYPE html>
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
