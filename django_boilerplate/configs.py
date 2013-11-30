@@ -21,19 +21,19 @@ STORAGE_PROD = 'prod'
 
 class Base(Configuration):
     ENV = ENV_LOCAL
-    APP_NAME = 'djbp'
-    RELEASE_NUM = 2
+    TEMPLATE_DEBUG = DEBUG = True
 
+    # Overwrite in app settings
+    RELEASE_NUM = 1
+    APP_NAME = 'djbp'
     TITLE = 'DJBP'
 
     PROJECT_ROOT = None
     APP_ROOT = None
 
-    TEMPLATE_DEBUG = DEBUG = True
-
-    WSGI_APPLICATION = 'wsgi.application'
-    ROOT_URLCONF = 'app.urls'
-    AUTH_USER_MODEL = 'django_boilerplate.User'
+    WSGI_APPLICATION = None
+    ROOT_URLCONF = None
+    AUTH_USER_MODEL = None
 
     MANAGERS = ADMINS = ()
 
