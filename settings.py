@@ -24,7 +24,6 @@ class AppBase(configs.Base):
 
     @classmethod
     def setup(cls):
-        print "AppBase - setup"
         super(AppBase, cls).setup()
         cls.INSTALLED_APPS += ('app', )
 

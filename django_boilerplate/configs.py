@@ -192,7 +192,6 @@ class Base(Configuration):
 
     @classmethod
     def pre_setup(cls):
-        print "base - pre_setup - %s" % cls
         super(Base, cls).pre_setup()
         cls.pre_setup_mixins()
 
@@ -204,8 +203,6 @@ class Base(Configuration):
 
     @classmethod
     def setup(cls):
-        print "base - setup - %s" % cls
-
         cls.STATIC_ROOT = os.path.join(cls.APP_ROOT, 'collectedstatic')
         cls.MEDIA_ROOT = os.path.join(cls.APP_ROOT, 'media')
 
@@ -220,7 +217,6 @@ class Base(Configuration):
 
     @classmethod
     def post_setup(cls):
-        print "base - post_setup - %s" % cls
         super(Base, cls).post_setup()
         cls.post_setup_mixins()
 
@@ -257,7 +253,6 @@ class S3Assets(object):
 
     @classmethod
     def setup(cls):
-        print "S3Assets - setup - %s" % cls
         cls.setup_mixin(cls)
         super(S3Assets, cls).setup()
 
