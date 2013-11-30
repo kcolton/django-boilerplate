@@ -35,6 +35,8 @@ class Base(Configuration):
     ROOT_URLCONF = None
     AUTH_USER_MODEL = None
 
+    GOOGLE_TAG_MANAGER_CONTAINER = values.Value(None, environ_prefix=None)
+
     MANAGERS = ADMINS = ()
 
     INSTALLED_APPS = (
@@ -66,7 +68,7 @@ class Base(Configuration):
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + (
-        'django_boilerplate.context_processor',
+        'django_boilerplate.context_processors.context_processor',
         'django_hijax.context_processor',
     )
 

@@ -45,6 +45,7 @@
     {% block head_tags %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
+    {% include 'djbp/includes/google_tag_manager.tpl' with context %}
     <div data-django-hijax-content>
       {% block body %}{% endblock %}
     </div>
