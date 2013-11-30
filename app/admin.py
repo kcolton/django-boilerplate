@@ -5,8 +5,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group
-
-from .models import User
+from django.contrib.auth import get_user_model
 
 
 class UserCreationForm(forms.ModelForm):
@@ -16,7 +15,7 @@ class UserCreationForm(forms.ModelForm):
     password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ('email',)
 
     def clean_password2(self):
@@ -40,11 +39,11 @@ class UserCreationForm(forms.ModelForm):
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields
     on the user, but replaces the password field with admin's
-    password hash display fiedl"""
+    password hash display field"""
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        model = User
+        model = get_user_model()
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -84,7 +83,7 @@ class UserAdmin(DefaultUserAdmin):
     filter_horizontal = ()
 
 # Register our custom user object with admin app
-admin.site.register(User, UserAdmin)
+admin.site.register(get_user_model(), UserAdmin)
 
 # Unregister Group from admin app because we aren't using permissions
 try:

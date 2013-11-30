@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
-    is_staff = models.BooleanField()
+    is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
 
