@@ -45,7 +45,7 @@
     {% block head_tags %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
-    <div data-app-page>
+    <div data-django-hijax-content>
       {% block body %}{% endblock %}
     </div>
     <div id="app-spinner"></div>

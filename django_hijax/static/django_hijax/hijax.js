@@ -3,7 +3,9 @@ window.DjangoHijax = function() {
   var self = this
     , hijaxNot = ':not([data-django-hijax-ignore],[target])'
     , hijaxLinks = 'a[href]' + hijaxNot
-    , hijaxForms = 'form' + hijaxNot;
+    , hijaxForms = 'form' + hijaxNot
+    , $content = $('[data-django-hijax-content]')
+    ;
 
   $(document).on('click', hijaxLinks, function(e) {
     if (e.isDefaultPrevented() || e.isPropagationStopped()) return;
@@ -87,7 +89,7 @@ window.DjangoHijax = function() {
 
     debug.log('DangoHijax - loadContent:', content.length, contentType);
 
-    $('body').html(content.toString()).toggleClass('django-hijax-content-type-text-plain', contentType != 'text/html');
+    $content.html(content.toString()).toggleClass('django-hijax-content-type-text-plain', contentType != 'text/html');
     $(document).scrollTop(0);
   };
 
