@@ -39,6 +39,10 @@ class LocalCompress(configs.CompressAssets, Local):
     pass
 
 
+class LocalNoDebug(Local):
+    DEBUG = TEMPLATE_DEBUG = False
+
+
 class Dev(configs.S3Assets, configs.CompressAssets, AppBase):
     ENV = configs.ENV_DEV
     STORAGE = configs.STORAGE_DEV
