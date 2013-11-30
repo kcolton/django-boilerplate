@@ -25,7 +25,7 @@ class AppBase(configs.Base):
     @classmethod
     def setup(cls):
         super(AppBase, cls).setup()
-        cls.INSTALLED_APPS += ('app', )
+        cls.INSTALLED_APPS = ('app', ) + cls.INSTALLED_APPS
 
 
 class Local(AppBase):
