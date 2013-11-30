@@ -5,22 +5,22 @@ App.views.Home = function($container) {
   dom.$container = $container;
 
   $container.find('.get-params').on('click', function() {
-    console.log('page change get w/ params');
+    debug.log('page change get w/ params');
     app.page.get('/info/', {'foo': 'bar'});
   });
 
   $container.find('.get-no-params').on('click', function() {
-    console.log('page change get no params');
+    debug.log('page change get no params');
     app.page.get('/info/');
   });
 
   $container.find('.post-data').on('click', function() {
-    console.log('page change post w/ data');
+    debug.log('page change post w/ data');
     app.page.post('/info/', {'coffee': 'good'});
   });
 
   $container.find('.post-no-data').on('click', function() {
-    console.log('page change post w/ no data');
+    debug.log('page change post w/ no data');
     app.page.post('/info/');
   });
 };

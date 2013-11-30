@@ -3,3 +3,10 @@ window.App = {
   views: {},
   activeViews: null
 };
+
+if (typeof console === 'undefined') {
+  console = {
+    log: debug.log
+  };
+}
+

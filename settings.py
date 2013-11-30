@@ -34,6 +34,10 @@ class Local(AppBase):
     STORAGE = configs.STORAGE_LOCAL
 
 
+class LocalCompress(configs.CompressAssets, Local):
+    pass
+
+
 class Dev(configs.S3Assets, configs.CompressAssets, AppBase):
     ENV = configs.ENV_DEV
     STORAGE = configs.STORAGE_DEV

@@ -7,6 +7,8 @@ JS_ASSETS = (
     'third_party/bootstrap/bootstrap.js',
     'third_party/modernizr.js',
     'third_party/moment.js',
+    'third_party/ba_debug.js',
+    'third_party/URI.js',
 
     'djbp/js/namespace.js',
     'djbp/js/utils/Functions.js',

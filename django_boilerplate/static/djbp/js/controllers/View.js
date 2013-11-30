@@ -4,7 +4,7 @@ App.controllers.View = function() {
 
   // Search content for views to instantiate
   self.instantiate = function($content) {
-    console.log('instantiate view from content:', $content);
+    debug.log('instantiate view from content:', $content);
 
     var $views = $content.find(VIEW_SELECTOR).andSelf().filter(VIEW_SELECTOR),
       instantiatedViews = [];
@@ -13,12 +13,12 @@ App.controllers.View = function() {
       var $viewContainer = $(this)
         , viewName = $viewContainer.data('appView');
 
-      console.log('found view:', viewName);
+      debug.log('found view:', viewName);
 
       if (App.views[viewName]) {
         instantiatedViews.push(new App.views[viewName]($viewContainer));
       } else {
-        console.log('COULD NOT FIND VIEW NAMED:', viewName);
+        debug.error('COULD NOT FIND VIEW NAMED:', viewName);
       }
     });
 

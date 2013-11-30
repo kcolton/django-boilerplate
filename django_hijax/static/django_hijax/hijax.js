@@ -16,7 +16,7 @@ window.DjangoHijax = function() {
     $(this).ajaxSubmit({
       data: {'_bare': true },
       complete: function(xhr, status) {
-        console.log('hijaxForm ajaxSubmit complete', arguments);
+        debug.log('DangoHijax - ajaxSubmit complete', arguments);
         self.loadFromXhr(xhr);
       }
     });
@@ -25,7 +25,7 @@ window.DjangoHijax = function() {
   });
 
   self.get = function(url, params) {
-    console.log('page.change url:', url, 'params:', params);
+    debug.log('DangoHijax.get:', url, 'params:', params);
     if (!self.isInternalUrl(url)) return false;
 
     if (params) {
@@ -38,7 +38,7 @@ window.DjangoHijax = function() {
 
   self.post = function(url, data) {
     data = data || {'_post': true}; // Empty object would not trigger post. See statechange handler
-    console.log('page.change post:', url, 'data:', data);
+    debug.log('DjangoHijax.post:', url, 'data:', data);
     if (!self.isInternalUrl(url)) return false;
     History.pushState(data, document.title, url);
   };
@@ -69,23 +69,23 @@ window.DjangoHijax = function() {
     }
 
     if (!newUri) {
-      console.log('warning: received no x-request-path header:', xhr);
+      debug.warn('DangoHijax - warning: received no x-request-path header:', xhr);
     }
 
     if (newUri && newUri.resource() != currentUri.resource()) {
       // Disconnect between where browser thinks it is, and how it got there. Probably redirect
-      console.log('REDIRECT:', currentUri.resource(), '=>', newUri.resource());
+      debug.log('DangoHijax - REDIRECT:', currentUri.resource(), '=>', newUri.resource());
       History.ignoreNextChange = true; // todo - gah! fix this!
       History.replaceState(null, title, newUri.resource());
     }
 
-    console.log('loadContentFromXhr - status:', statusCode, 'requestPath:', requestPath,
+    debug.log('DangoHijax - loadContentFromXhr - status:', statusCode, 'requestPath:', requestPath,
       'current uri:', currentUri, 'new uri:', newUri, 'xhr:', xhr,
       'statusCode:', 'contentType:', contentType, 'release:', release);
 
     var content = xhr.responseText;
 
-    console.log('loadContent:', content.length, contentType);
+    debug.log('DangoHijax - loadContent:', content.length, contentType);
 
     $('body').html(content.toString()).toggleClass('django-hijax-content-type-text-plain', contentType != 'text/html');
     $(document).scrollTop(0);
@@ -114,7 +114,7 @@ window.DjangoHijax = function() {
       options.data = state.data;
     }
 
-    console.log('history stateChange - loading uri:', uri, 'options:', options);
+    debug.log('DangoHijax - history stateChange - loading uri:', uri, 'options:', options);
     options.dataType = options.dataType || 'html';
 
     $.ajax(uri.toString(), options).always(function(dataOrXhr, textStatus, errorOrXhr) {
