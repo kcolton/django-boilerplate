@@ -6,3 +6,5 @@ ve
 *.envc
 *collectedstatic
 *static/dist
+django_boilerplate/static/third_party/bootstrap/less/bootstrap.css
+django_boilerplate/static/djbp/css/main.css
