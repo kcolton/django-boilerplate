@@ -50,6 +50,6 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     class Meta:
-        db_table = 'users'
+        abstract = True
 
 

@@ -17,7 +17,7 @@ class AppBase(configs.Base):
 
     WSGI_APPLICATION = 'wsgi.application'
     ROOT_URLCONF = 'app.urls'
-    AUTH_USER_MODEL = 'django_boilerplate.User'
+    AUTH_USER_MODEL = 'app.User'
 
     TIME_ZONE = 'America/New_York'
     LANGUAGE_CODE = 'en-us'
