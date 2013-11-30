@@ -5,13 +5,14 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from django.contrib import admin
 
-from django_boilerplate import example_urls
+from django_boilerplate import example_urls, debug_urls
 from django_boilerplate.views import errors
 
 admin.autodiscover()
 
 urlpatterns = patterns('app.views',
     url(r'', include(example_urls)),
+    url(r'^debug/', include(debug_urls)),
     url(r'^admin/', include(admin.site.urls)),
 
     # Some globally annoying URLs that we don't want django spending much time on
