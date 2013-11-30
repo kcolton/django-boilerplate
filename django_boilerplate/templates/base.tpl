@@ -28,12 +28,12 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
     {% compressed_js 'main' %}
+    {% block extra_scripts %}{% endblock %}
     <script>
       $(function() {
         window.app = new App.controllers.App();
       });
     </script>
-    {% block extra_scripts %}{% endblock %}
 
     {% if not PIPELINE_ENABLED %}
     <script>
