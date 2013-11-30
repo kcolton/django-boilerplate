@@ -1,5 +1,7 @@
+from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 from . import forms
+from django.contrib.auth.models import Group
 
 
 class UserAdmin(DefaultUserAdmin):
@@ -31,3 +33,11 @@ class UserAdmin(DefaultUserAdmin):
     ordering = ('email',)
 
     filter_horizontal = ()
+
+
+# Unregister Group from admin app because we aren't using permissions
+try:
+    admin.site.unregister(Group)
+except admin.site.NotRegistered:
+    print "Groups not registered. All good"
+    pass
