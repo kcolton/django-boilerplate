@@ -32,6 +32,8 @@ class Local(AppBase):
     ENV = configs.ENV_LOCAL
     STORAGE = configs.STORAGE_LOCAL
 
+    DEBUG = TEMPLATE_DEBUG = True
+
 
 class LocalCompress(configs.CompressAssets, Local):
     pass
@@ -41,11 +43,14 @@ class Dev(configs.S3Assets, configs.CompressAssets, AppBase):
     ENV = configs.ENV_DEV
     STORAGE = configs.STORAGE_DEV
 
+    DEBUG = TEMPLATE_DEBUG = True
+
 
 class Prod(configs.S3Assets, configs.CompressAssets, AppBase):
     ENV = configs.ENV_PROD
     STORAGE = configs.STORAGE_PROD
 
+    DEBUG = TEMPLATE_DEBUG = False
     # add jinja2 options
 
 

@@ -26,8 +26,8 @@ class Base(Configuration):
 
     TITLE = 'DJBP'
 
-    PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-    APP_ROOT = os.path.join(PROJECT_ROOT, 'app')
+    PROJECT_ROOT = None
+    APP_ROOT = None
 
     TEMPLATE_DEBUG = DEBUG = True
 
@@ -187,7 +187,6 @@ class Base(Configuration):
         'pipeline.jinja2.ext.PipelineExtension'
     ]
 
-    DATABASES = values.DatabaseURLValue('sqlite:///' + os.path.join(PROJECT_ROOT, 'data/db.sqlite'))
     SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
     @classmethod
@@ -205,6 +204,8 @@ class Base(Configuration):
     def setup(cls):
         cls.STATIC_ROOT = os.path.join(cls.APP_ROOT, 'collectedstatic')
         cls.MEDIA_ROOT = os.path.join(cls.APP_ROOT, 'media')
+
+        cls.DATABASES = values.DatabaseURLValue('sqlite:///' + os.path.join(cls.PROJECT_ROOT, 'data/db.sqlite'))
 
         super(Base, cls).setup()
         cls.setup_mixins()
