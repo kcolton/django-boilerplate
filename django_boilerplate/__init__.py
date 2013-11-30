@@ -24,7 +24,7 @@ def context_processor(request):
         'DATE': datetime.datetime.now(),
 
         'DEBUG': 'shitisfucked' in request.COOKIES,
-        'ASSETS_DEBUG': settings.ASSETS_DEBUG
+        'PIPELINE_ENABLED': settings.PIPELINE_ENABLED
     }
 
 

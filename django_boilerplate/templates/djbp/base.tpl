@@ -25,13 +25,10 @@
       {% if DEBUG %}DEBUG = 1;{% endif -%}
     </script>
 
-{#    {% assets "main.js" %}<script src="{{ ASSET_URL }}"></script>#}
-{#    {% endassets %}#}
-
     {% compressed_js 'main' %}
     {% compressed_css 'main' %}
 
-    {% if ASSETS_DEBUG %}
+    {% if not PIPELINE_ENABLED %}
     <script>
       var less = { env: 'development' };
     </script>
