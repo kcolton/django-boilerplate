@@ -252,6 +252,8 @@ class S3Assets(object):
     AWS_SECRET_ACCESS_KEY = values.SecretValue(environ_prefix=None)
     AWS_QUERYSTRING_AUTH = False
     AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
+    AWS_IS_GZIPPED = True
+
     STATICFILES_STORAGE = 'django_boilerplate.storage.ReleaseStaticsS3BotoStorage'
 
     @classmethod
