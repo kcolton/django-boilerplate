@@ -10,7 +10,6 @@ from django.utils.datetime_safe import datetime
 from django.views.decorators.cache import cache_control
 from django_hijax.view_decorators import set_title
 
-from ..models import User
 from ..view_decorators import html_view, json_view, csv_attachment_view
 from .. import get_title
 
@@ -165,9 +164,6 @@ def log(request):
     logger.critical('module logger critical message')
 
     warnings.warn('this is about to be depricated. this warning should only be shown once', DeprecationWarning)
-
-    # Trigger SQL to test SQL logging
-    users = User.objects.all().count()
 
     return dict(manager=logging.Logger.manager)
 
