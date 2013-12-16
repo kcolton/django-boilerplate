@@ -1,4 +1,30 @@
-import django_hijax.assets
+import importlib
+
+
+def autodiscover_assets(packages):
+    js_assets = list()
+    css_assets = list()
+
+    for package in packages:
+        print "autodiscovering assets in %s" % package
+
+        try:
+            assets_module = importlib.import_module('%s.assets' % package)
+
+            try:
+                js_assets += list(assets_module.JS_ASSETS)
+            except AttributeError:
+                print "no JS_ASSETS"
+
+            try:
+                css_assets += list(assets_module.CSS_ASSETS)
+            except AttributeError:
+                print "no CSS_ASSETS"
+
+        except ImportError:
+            print "No assets module in package: %s" % package
+
+    return js_assets, css_assets
 
 
 JS_ASSETS = (
@@ -16,9 +42,9 @@ JS_ASSETS = (
     'djbp/js/controllers/App.js',
     'djbp/js/behaviors/ui.js',
     'djbp/js/views/*.js',
-) + django_hijax.assets.JS_ASSETS
+)
 
 CSS_ASSETS = (
     'third_party/bootstrap/less/bootstrap.less',
     'djbp/css/main.less',
-) + django_hijax.assets.CSS_ASSETS
+)

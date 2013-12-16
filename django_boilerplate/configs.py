@@ -171,17 +171,19 @@ class Base(Configuration):
 
     PIPELINE_ENABLED = False
 
-    PIPELINE_CSS = {
-        'main': {
-            'source_filenames': assets.CSS_ASSETS,
-            'output_filename': 'dist/main.css',
-        },
-    }
+    # actual filenames will be auto-discovered and added in post_setup
 
     PIPELINE_JS = {
         'main': {
-            'source_filenames': assets.JS_ASSETS,
+            'source_filenames': [],
             'output_filename': 'dist/main.js',
+        },
+    }
+
+    PIPELINE_CSS = {
+        'main': {
+            'source_filenames': [],
+            'output_filename': 'dist/main.css',
         },
     }
 
@@ -220,6 +222,12 @@ class Base(Configuration):
 
     @classmethod
     def post_setup(cls):
+        from django.conf import settings
+        js_assets, css_assets = assets.autodiscover_assets(settings.INSTALLED_APPS)
+
+        settings.PIPELINE_JS['main']['source_filenames'] += js_assets
+        settings.PIPELINE_CSS['main']['source_filenames'] += css_assets
+
         super(Base, cls).post_setup()
         cls.post_setup_mixins()
 
