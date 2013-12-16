@@ -156,8 +156,7 @@ class Base(Configuration):
     # Security
 
     # Override in environment specific settings or .env file
-    DEFAULT_SECRET_KEY = 'unsecure_default_secret'
-    SECRET_KEY = values.Value(default=DEFAULT_SECRET_KEY, environ_prefix=None)
+    SECRET_KEY = values.Value(environ_prefix=None)
 
     ALLOWED_HOSTS = ['*']
 
