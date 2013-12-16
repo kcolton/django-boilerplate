@@ -1,4 +1,4 @@
-Django==1.6
+Django==1.6.1
 pytz==2013.7            # Not "required", but should always be included when dealing with time
 python-dateutil==2.1
 
