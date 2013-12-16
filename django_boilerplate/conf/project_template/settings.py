@@ -1,23 +1,23 @@
 import os
 import pymysql
 
-from django_boilerplate import configs
+from django_boilerplate.conf import configs
 
 pymysql.install_as_MySQLdb()
 
 
 class AppBase(configs.Base):
-    APP_NAME = 'djbp'
-    RELEASE_NUM = 2
+    APP_NAME = '{{ project_name }}'
+    RELEASE_NUM = 1
 
-    TITLE = 'My DJBP Application'
+    TITLE = '{{ project_name }}'
 
     PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-    APP_ROOT = os.path.join(PROJECT_ROOT, 'app')
+    APP_ROOT = os.path.join(PROJECT_ROOT, '{{ project_name }}')
 
     WSGI_APPLICATION = 'wsgi.application'
-    ROOT_URLCONF = 'app.urls'
-    AUTH_USER_MODEL = 'app.User'
+    ROOT_URLCONF = 'urls'
+    AUTH_USER_MODEL = '{{ project_name }}.User'
 
     TIME_ZONE = 'America/New_York'
     LANGUAGE_CODE = 'en-us'
@@ -25,7 +25,7 @@ class AppBase(configs.Base):
     @classmethod
     def setup(cls):
         super(AppBase, cls).setup()
-        cls.INSTALLED_APPS = ('app', ) + cls.INSTALLED_APPS
+        cls.INSTALLED_APPS = ('{{ project_name }}', ) + cls.INSTALLED_APPS
 
 
 class Local(AppBase):

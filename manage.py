@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import os
 import sys
+import importlib
+
+import django.core.management
 
 from django_boilerplate.utils import safety_check, dotenv_load
 
@@ -19,14 +22,30 @@ except ValueError:
 print "MANAGE APP_CONFIG:%s" % APP_CONFIG
 os.environ['DJANGO_CONFIGURATION'] = APP_CONFIG
 os.environ['APP_CONFIG'] = APP_CONFIG
+
+
+# ugly - disgusting - crap
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 
-# Merge in .env files to os.environ
-dotenv_load('envs/%s.env' % APP_CONFIG)
+try:
+    importlib.import_module(os.environ['DJANGO_SETTINGS_MODULE'])
 
-from configurations.management import execute_from_command_line
+    import configurations.management
 
-# safety_check()
+    # Merge in .env files to os.environ
+    dotenv_load('envs/%s.env' % APP_CONFIG)
 
-print "Executing from command line:%s" % sys.argv
-execute_from_command_line(sys.argv)
+    # safety_check()
+
+    print "Executing from command line:%s" % sys.argv
+    configurations.management.execute_from_command_line(sys.argv)
+
+except ImportError:
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'django_boilerplate.conf.empty_settings'
+    django.core.management.execute_from_command_line(sys.argv)
+
+    from django.conf import settings
+    print "INSTALLED: %s" % settings.INSTALLED_APPS
+
+
