@@ -29,7 +29,7 @@ class AppAssets(object):
                     pass
 
                 try:
-                    app_assets.css_libraries += list(assets_module.JS_LIBRARIES)
+                    app_assets.css_libraries += list(assets_module.CSS_LIBRARIES)
                 except AttributeError:
                     pass
 

@@ -1,4 +1,3 @@
-from django_boilerplate.assets import AppAssets
 import os
 
 from boto.s3.connection import OrdinaryCallingFormat
@@ -223,10 +222,10 @@ class Base(Configuration):
     @classmethod
     def post_setup(cls):
         from django.conf import settings
-        assets = AppAssets.autodiscover(settings.INSTALLED_APPS)
+        app_assets = assets.AppAssets.autodiscover(settings.INSTALLED_APPS)
 
-        settings.PIPELINE_JS['main']['source_filenames'] += assets.js_libraries + assets.js_app_scripts
-        settings.PIPELINE_CSS['main']['source_filenames'] += assets.css_libraries + assets.css_app_styles
+        settings.PIPELINE_JS['main']['source_filenames'] += app_assets.js_libraries + app_assets.js_app_scripts
+        settings.PIPELINE_CSS['main']['source_filenames'] += app_assets.css_libraries + app_assets.css_app_styles
 
         super(Base, cls).post_setup()
         cls.post_setup_mixins()
