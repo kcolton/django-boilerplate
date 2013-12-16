@@ -6,23 +6,21 @@ def autodiscover_assets(packages):
     css_assets = list()
 
     for package in packages:
-        print "autodiscovering assets in %s" % package
-
         try:
             assets_module = importlib.import_module('%s.assets' % package)
 
             try:
                 js_assets += list(assets_module.JS_ASSETS)
             except AttributeError:
-                print "no JS_ASSETS"
+                pass
 
             try:
                 css_assets += list(assets_module.CSS_ASSETS)
             except AttributeError:
-                print "no CSS_ASSETS"
+                pass
 
         except ImportError:
-            print "No assets module in package: %s" % package
+            pass
 
     return js_assets, css_assets
 
