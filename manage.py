@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import os
 import sys
-import importlib
 
 import django.core.management
+import imp
 
 from django_boilerplate.utils import safety_check, dotenv_load
 
@@ -29,7 +29,7 @@ os.environ['APP_CONFIG'] = APP_CONFIG
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 
 try:
-    importlib.import_module(os.environ['DJANGO_SETTINGS_MODULE'])
+    imp.find_module(os.environ['DJANGO_SETTINGS_MODULE'])
 
     import configurations.management
 
