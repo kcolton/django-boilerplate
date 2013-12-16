@@ -31,12 +31,12 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 try:
     imp.find_module(os.environ['DJANGO_SETTINGS_MODULE'])
 
-    import configurations.management
-
     # Merge in .env files to os.environ
     dotenv_load('envs/%s.env' % APP_CONFIG)
 
     # safety_check()
+
+    import configurations.management
 
     print "Executing from command line:%s" % sys.argv
     configurations.management.execute_from_command_line(sys.argv)
