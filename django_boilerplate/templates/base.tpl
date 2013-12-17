@@ -7,6 +7,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
+    {% block head_top %}{% endblock %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
@@ -14,8 +15,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% include "djbp/includes/assets_early.tpl" with context %}
+
+    {% block head_bottom %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
+    {% block body_top %}{% endblock %}
     <div data-app-page>
       {% block body %}{% endblock %}
     </div>
@@ -27,6 +31,7 @@
       });
     </script>
     {% include 'djbp/includes/google_tag_manager.tpl' with context %}
+    {% block body_bottom %}{% endblock %}
   </body>
 </html>
 {% endif %}

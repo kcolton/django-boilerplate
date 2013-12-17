@@ -21,4 +21,3 @@
 {% endif %}
 
 {% compressed_js 'main' %}
-{% block extra_scripts %}{% endblock %}

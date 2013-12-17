@@ -7,7 +7,6 @@
 {% endif %}
 
 {% compressed_css 'main' %}
-{% block extra_styles %}{% endblock %}
 
 {% if not PIPELINE_ENABLED %}
 <script>
