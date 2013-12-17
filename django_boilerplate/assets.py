@@ -48,7 +48,6 @@ JS_LIBRARIES = (
     'third_party/jquery/jquery.cookie.js',
     'third_party/jquery/jquery.form.js',
     'third_party/bootstrap/bootstrap.js',
-    'third_party/modernizr.js',
     'third_party/moment.js',
     'third_party/ba_debug.js',
     'third_party/URI.js',

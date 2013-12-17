@@ -184,6 +184,10 @@ class Base(Configuration):
         },
     }
 
+    JQUERY_UI = True
+    CDN_LIBRARIES = True
+
+
     JINJA2_EXTENSIONS = [
         'pipeline.jinja2.ext.PipelineExtension'
     ]
