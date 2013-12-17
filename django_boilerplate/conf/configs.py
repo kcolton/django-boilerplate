@@ -28,7 +28,6 @@ class Base(Configuration):
     TITLE = 'DJBP'
 
     PROJECT_ROOT = None
-    APP_ROOT = None
 
     WSGI_APPLICATION = None
     ROOT_URLCONF = None
@@ -204,8 +203,8 @@ class Base(Configuration):
 
     @classmethod
     def setup(cls):
-        cls.STATIC_ROOT = os.path.join(cls.APP_ROOT, 'collectedstatic')
-        cls.MEDIA_ROOT = os.path.join(cls.APP_ROOT, 'media')
+        cls.STATIC_ROOT = os.path.join(cls.PROJECT_ROOT, 'collectedstatic')
+        cls.MEDIA_ROOT = os.path.join(cls.PROJECT_ROOT, 'media')
 
         cls.DATABASES = values.DatabaseURLValue('sqlite:///' + os.path.join(cls.PROJECT_ROOT, 'data/db.sqlite'))
 

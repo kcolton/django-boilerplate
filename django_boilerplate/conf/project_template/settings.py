@@ -13,7 +13,6 @@ class AppBase(configs.Base):
     TITLE = '{{ project_name }}'
 
     PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-    APP_ROOT = os.path.join(PROJECT_ROOT, '{{ project_name }}')
 
     WSGI_APPLICATION = 'wsgi.application'
     ROOT_URLCONF = 'urls'
