@@ -19,6 +19,7 @@ def context_processor(request):
 
         'DATE': datetime.datetime.now(),
 
-        'DEBUG': 'shitisfucked' in request.COOKIES,
+        'JQUERY_UI': settings.JQUERY_UI,
+        'CDN_LIBRARIES': settings.CDN_LIBRARIES,
         'PIPELINE_ENABLED': settings.PIPELINE_ENABLED
     }

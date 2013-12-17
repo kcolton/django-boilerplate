@@ -11,36 +11,13 @@
     <title>{{ TITLE }}</title>
     <meta name="viewport" content="width=device-width">
 
-    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
-    {% compressed_css 'main' %}
-    {% block extra_styles %}{% endblock %}
+    {% include "djbp/includes/assets.tpl" %}
 
-    <script>
-      BOOT = {
-        env: '{{ ENV }}',
-        rel: {{ RELEASE_NUM }},
-        staticUrl: '{{ STATIC_URL }}'
-      };
-
-      {% if DEBUG %}DEBUG = 1;{% endif -%}
-    </script>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
-    {% compressed_js 'main' %}
-    {% block extra_scripts %}{% endblock %}
     <script>
       $(function() {
         window.app = new App.controllers.App();
       });
     </script>
-
-    {% if not PIPELINE_ENABLED %}
-    <script>
-      var less = { env: 'development' };
-    </script>
-    <script src="{% static 'third_party/less.js' %}"></script>
-    {% endif %}
 
   </head>
   <body class="{% block body_class %}{% endblock %}">
