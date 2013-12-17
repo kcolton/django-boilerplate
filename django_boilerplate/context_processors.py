@@ -20,6 +20,7 @@ def context_processor(request):
         'DATE': datetime.datetime.now(),
 
         'JQUERY_UI': settings.JQUERY_UI,
+        'LODASH': settings.LODASH,
         'CDN_LIBRARIES': settings.CDN_LIBRARIES,
         'PIPELINE_ENABLED': settings.PIPELINE_ENABLED
     }
