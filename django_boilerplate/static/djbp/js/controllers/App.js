@@ -1,7 +1,7 @@
 App.controllers.App = function() {
 
   var self = this
-    , $page = $('[data-app-page]');
+    , $page = $('[data-django-hijax-content]');
 
   self.page = new DjangoHijax();
   self.view = new App.controllers.View();
