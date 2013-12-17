@@ -16,14 +16,14 @@
     {% include "djbp/includes/assets_early.tpl" with context %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
-    <div data-django-hijax-content>
+    <div data-app-page>
       {% block body %}{% endblock %}
     </div>
     <div id="app-spinner"></div>
     {% include "djbp/includes/assets_late.tpl" with context %}
     <script>
       $(function() {
-        window.app = new App.controllers.App();
+        window.app = new App.controllers.App($('[data-app-page]'));
       });
     </script>
     {% include 'djbp/includes/google_tag_manager.tpl' with context %}

@@ -1,9 +1,11 @@
-App.controllers.App = function() {
+App.controllers.App = function($page) {
 
-  var self = this
-    , $page = $('[data-django-hijax-content]');
+  var self = this;
 
-  self.page = new DjangoHijax();
+  if (typeof DjangoHijax != 'undefined') {
+    // DjangoHijax app was included
+    self.page = new DjangoHijax($page);
+  }
   self.view = new App.controllers.View();
 
   $(document).on('page-loaded.django-hijax', function() {

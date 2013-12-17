@@ -1,10 +1,9 @@
-window.DjangoHijax = function() {
+window.DjangoHijax = function($content) {
 
   var self = this
     , hijaxNot = ':not([data-django-hijax-ignore],[target])'
     , hijaxLinks = 'a[href]' + hijaxNot
     , hijaxForms = 'form' + hijaxNot
-    , $content = $('[data-django-hijax-content]')
     ;
 
   $(document).on('click', hijaxLinks, function(e) {
