@@ -11,13 +11,7 @@
     <title>{{ TITLE }}</title>
     <meta name="viewport" content="width=device-width">
 
-    {% include "djbp/includes/assets.tpl" %}
-
-    <script>
-      $(function() {
-        window.app = new App.controllers.App();
-      });
-    </script>
+    {% include "djbp/includes/assets_early.tpl" %}
 
   </head>
   <body class="{% block body_class %}{% endblock %}">
@@ -26,6 +20,12 @@
       {% block body %}{% endblock %}
     </div>
     <div id="app-spinner"></div>
+    {% include "djbp/includes/assets_late.tpl" %}
+    <script>
+      $(function() {
+        window.app = new App.controllers.App();
+      });
+    </script>
   </body>
 </html>
 {% endif %}
