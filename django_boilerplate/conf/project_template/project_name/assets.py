@@ -1,2 +1,4 @@
-JS_ASSETS = list()
-CSS_ASSETS = list()
+JS_LIBRARIES = list()
+JS_APP_SCRIPTS = list()
+CSS_LIBRARIES = list()
+CSS_APP_SCRIPTS = list()
