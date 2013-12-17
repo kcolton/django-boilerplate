@@ -70,3 +70,8 @@ def is_datetime(field):
 @register.filter
 def classname(obj):
     return obj.__class__.__name__
+
+
+@register.filter
+def mailto(email):
+    return '<a href="mailto:%s">%s</a>' % (email, email)
