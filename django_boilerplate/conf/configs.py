@@ -269,7 +269,15 @@ class S3Assets(object):
     @staticmethod
     def setup_mixin(cls):
         cls.INSTALLED_APPS += ('storages',)
-        cls.AWS_STORAGE_BUCKET_NAME = '%s-%s' % (cls.APP_NAME, cls.STORAGE)
-        cls.STATIC_PREFIX = 'static/%s/%d/' % (cls.ENV, cls.RELEASE_NUM)
-        cls.S3_URL = 'http://s3.amazonaws.com/%s/' % cls.AWS_STORAGE_BUCKET_NAME
-        cls.STATIC_URL = cls.S3_URL + cls.STATIC_PREFIX
+
+        if not hasattr(cls, 'AWS_STORAGE_BUCKET_NAME'):
+            cls.AWS_STORAGE_BUCKET_NAME = '%s-%s' % (cls.APP_NAME, cls.STORAGE)
+
+        if not hasattr(cls, 'STATIC_PREFIX'):
+            cls.STATIC_PREFIX = 'static/%s/%d/' % (cls.ENV, cls.RELEASE_NUM)
+
+        if not hasattr(cls, 'S3_URL'):
+            cls.S3_URL = 'http://s3.amazonaws.com/%s/' % cls.AWS_STORAGE_BUCKET_NAME
+
+        if not hasattr(cls, 'STATIC_URL'):
+            cls.STATIC_URL = cls.S3_URL + cls.STATIC_PREFIX
