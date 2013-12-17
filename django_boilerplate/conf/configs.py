@@ -185,6 +185,7 @@ class Base(Configuration):
     }
 
     JQUERY_UI = True
+    LODASH = True
     CDN_LIBRARIES = True
 
 
