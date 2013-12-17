@@ -27,9 +27,9 @@ def load_environment():
     if configuration_args:
         configuration = configuration_arg_check.match(configuration_args[0]).group(1)
         print "Configuration from arg: %s" % configuration
+        os.environ.setdefault('DJANGO_CONFIGURATION', configuration)
     else:
+        print "Configuration from os.environ"
         os.environ.setdefault('DJANGO_CONFIGURATION', 'Local')
-        configuration = os.environ['DJANGO_CONFIGURATION']
-        print "Configuration from os.environ: %s" % configuration
 
-    dotenv_load('envs/%s.env' % configuration)
+    dotenv_load('envs/%s.env' % os.environ['DJANGO_CONFIGURATION'])
