@@ -12,6 +12,7 @@ from django_boilerplate.views import errors
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    #url(r'', include('{{ project_name }}.urls')),
     url(r'', include(example_urls)),
     url(r'^debug/', include(debug_urls)),
     url(r'^admin/', include(admin.site.urls)),
