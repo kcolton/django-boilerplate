@@ -5,10 +5,19 @@ from django.http import HttpResponse
 
 
 def context_processor(request):
-    return {
-        'IS_BARE': getattr(request, 'is_bare', None),
-        'TITLE': getattr(request, 'title', None),
-    }
+    ctx = dict()
+
+    try:
+        ctx['IS_BARE'] = request.is_bare
+    except AttributeError:
+        pass
+
+    try:
+        ctx['TITLE'] = request.title
+    except AttributeError:
+        pass
+
+    return ctx
 
 
 class Middleware(object):
