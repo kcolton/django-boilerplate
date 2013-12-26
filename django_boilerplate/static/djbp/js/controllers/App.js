@@ -9,6 +9,7 @@ App.controllers.App = function($page) {
   self.view = new App.controllers.View();
 
   $(document).on('page-loaded.django-hijax', function() {
+    debug.log('page-loaded.django-hijax');
     App.activeViews = self.view.instantiate($page);
   });
 

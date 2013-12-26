@@ -89,7 +89,7 @@ window.DjangoHijax = function($content) {
     debug.log('DangoHijax - loadContent:', content.length, contentType);
 
     $content.html(content.toString()).toggleClass('django-hijax-content-type-text-plain', contentType != 'text/html');
-    $(document).scrollTop(0);
+    $(document).scrollTop(0).trigger('page-loaded.django-hijax');
   };
 
   History.Adapter.bind(window, 'statechange', function(e) {
