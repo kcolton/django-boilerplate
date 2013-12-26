@@ -284,5 +284,4 @@ class S3Assets(object):
         if not hasattr(cls, 'S3_URL'):
             cls.S3_URL = 'http://s3.amazonaws.com/%s/' % cls.AWS_STORAGE_BUCKET_NAME
 
-        if not hasattr(cls, 'STATIC_URL'):
-            cls.STATIC_URL = cls.S3_URL + cls.STATIC_PREFIX
+        cls.STATIC_URL = cls.S3_URL + cls.STATIC_PREFIX
