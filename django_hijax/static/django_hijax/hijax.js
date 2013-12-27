@@ -53,6 +53,7 @@ window.DjangoHijax = function($content) {
   self.loadFromXhr = function(xhr) {
     var statusCode = xhr.status
       , contentType = xhr.getResponseHeader('content-type')
+      , contentTypeIsHtml = contentType.indexOf('text/html') != -1
       , externalRedirect = xhr.getResponseHeader('x-external-redirect')
       , release = xhr.getResponseHeader('x-release')
       , requestPath = xhr.getResponseHeader('x-request-path')
@@ -88,7 +89,7 @@ window.DjangoHijax = function($content) {
 
     debug.log('DangoHijax - loadContent:', content.length, contentType);
 
-    $content.html(content.toString()).toggleClass('django-hijax-content-type-text-plain', contentType != 'text/html');
+    $content.html(content.toString()).toggleClass('django-hijax-content-type-text-plain', !contentTypeIsHtml);
     $(document).scrollTop(0).trigger('page-loaded.django-hijax');
   };
 
