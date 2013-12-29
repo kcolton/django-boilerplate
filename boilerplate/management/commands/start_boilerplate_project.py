@@ -1,5 +1,6 @@
 from django.core.management.templates import TemplateCommand
 from django.utils.crypto import get_random_string
+from django.conf import settings
 
 
 class Command(TemplateCommand):
@@ -7,7 +8,7 @@ class Command(TemplateCommand):
         self.validate_name(project_name, "project")
 
         options['extensions'] = ['.py', '.env']
-        options['template'] = 'boilerplate/conf/project_template'
+        options['template'] = settings.PROJECT_TEMPLATE
 
         # Create a random SECRET_KEY hash to put it in the main settings.
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
