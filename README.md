@@ -37,6 +37,10 @@ Stack in mind:
 
         $ pip install -r requirements.txt
 
+*   If all has gone well, you should be able to fire up the development server and see some example pages
+
+        $ python manage.py runserver
+
 
 ## Integrate into an existing project
 

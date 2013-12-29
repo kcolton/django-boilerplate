@@ -1,4 +1,4 @@
-{% if IS_BARE %}
+{% if IS_HIJAX %}
   {% extends 'base_bare.tpl' %}
 {% else %}
 <!DOCTYPE html>
