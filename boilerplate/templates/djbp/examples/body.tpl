@@ -24,7 +24,7 @@
               <li><a href="http://github.com/kcolton/django-boilerplate">External URL</a></li>
               <li><a href="{% url 'redirect_internal' %}">Internal Redirect</a></li>
               <li><a href="{% url 'redirect_external' %}">External Redirect</a></li>
-              <li><a href="{% url 'home' %}" data-app-no-hijax>No Hijax</a></li>
+              <li><a href="{% url 'home' %}" data-hijax-ignore>No Hijax</a></li>
             </ul>
           </li>
           <li class="dropdown">

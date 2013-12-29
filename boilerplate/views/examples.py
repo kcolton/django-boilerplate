@@ -8,7 +8,7 @@ from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.utils.datetime_safe import datetime
 from django.views.decorators.cache import cache_control
-from django_hijax.view_decorators import set_title
+from hijax.view_decorators import set_title
 
 from ..view_decorators import html_view, json_view, csv_attachment_view
 from .. import get_title

@@ -2,14 +2,14 @@ App.controllers.App = function($page) {
 
   var self = this;
 
-  if (typeof DjangoHijax != 'undefined') {
-    // DjangoHijax app was included
-    self.page = new DjangoHijax($page);
+  if (typeof Hijax != 'undefined') {
+    // hijax app was included
+    self.page = new Hijax($page);
   }
   self.view = new App.controllers.View();
 
-  $(document).on('page-loaded.django-hijax', function() {
-    debug.log('page-loaded.django-hijax');
+  $(document).on('page-loaded.hijax', function() {
+    debug.log('page-loaded.hijax');
     App.activeViews = self.view.instantiate($page);
   });
 

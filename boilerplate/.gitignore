@@ -1,8 +1,0 @@
-ve
-.idea
-*.pyc
-*.sqlite
-*.env
-*.envc
-*collectedstatic
-*static/dist

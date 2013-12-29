@@ -1,0 +1,9 @@
+ve
+.idea
+*.pyc
+*.sqlite
+*.env
+*.envc
+*collectedstatic
+boilerplate/static/third_party/bootstrap/less/bootstrap.css
+boilerplate/static/djbp/css/main.css

@@ -58,7 +58,7 @@ class Base(Configuration):
     MIDDLEWARE_CLASSES = (
         'django.middleware.common.CommonMiddleware',
 
-        'django_hijax.Middleware',
+        'hijax.plugins.Middleware',
 
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
