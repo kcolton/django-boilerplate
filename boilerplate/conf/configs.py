@@ -245,6 +245,9 @@ class CompressAssets(object):
     PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
     PIPELINE_CSS_COMPRESSOR = None
     PIPELINE_COMPILERS = ('pipeline.compilers.less.LessCompiler',)
+
+    # Do our compilation on the collected statics
+    PIPELINE_STORAGE = 'pipeline.storage.PipelineStorage'
     STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
     @classmethod
