@@ -5,5 +5,7 @@ ve
 *.env
 *.envc
 *collectedstatic
+*.egg-info
+dist/*
 boilerplate/static/third_party/bootstrap/less/bootstrap.css
 boilerplate/static/djbp/css/main.css
