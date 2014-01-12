@@ -226,7 +226,7 @@ class CompressAssets(object):
     PIPELINE_STORAGE = 'pipeline.storage.PipelineStorage'
     STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
-    @staticmethod
+    @classmethod
     def setup(cls):
         cls.STATICFILES_FINDERS += ('pipeline.finders.PipelineFinder', )
         super(CompressAssets, cls).setup()
@@ -241,7 +241,7 @@ class S3Assets(object):
 
     STATICFILES_STORAGE = 'boilerplate.storage.ReleaseStaticsS3BotoStorage'
 
-    @staticmethod
+    @classmethod
     def setup(cls):
         cls.INSTALLED_APPS += ('storages',)
 
