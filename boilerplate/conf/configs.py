@@ -195,49 +195,26 @@ class Base(Configuration):
 
     SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
-    @classmethod
-    def pre_setup(cls):
-        super(Base, cls).pre_setup()
-        cls.pre_setup_mixins()
-
-    @classmethod
-    def pre_setup_mixins(cls):
-        for base in inspect.getmro(cls):
-            if not issubclass(base, Configuration) and hasattr(base, 'pre_setup_mixin'):
-                base.pre_setup_mixin(cls)
+    print('Base class namespace')
 
     @classmethod
     def setup(cls):
         cls.STATIC_ROOT = os.path.join(cls.PROJECT_ROOT, 'collectedstatic')
         cls.MEDIA_ROOT = os.path.join(cls.PROJECT_ROOT, 'media')
-
         cls.DATABASES = values.DatabaseURLValue('sqlite:///' + os.path.join(cls.PROJECT_ROOT, 'data/db.sqlite'))
 
         super(Base, cls).setup()
-        cls.setup_mixins()
 
-    @classmethod
-    def setup_mixins(cls):
-        for base in inspect.getmro(cls):
-            if not issubclass(base, Configuration) and hasattr(base, 'setup_mixin'):
-                base.setup_mixin(cls)
 
     @classmethod
     def post_setup(cls):
+        super(Base, cls).post_setup()
+
         from django.conf import settings
         app_assets = assets.AppAssets.autodiscover(settings.INSTALLED_APPS)
 
         settings.PIPELINE_JS['main']['source_filenames'] += app_assets.js_libraries + app_assets.js_app_scripts
         settings.PIPELINE_CSS['main']['source_filenames'] += app_assets.css_libraries + app_assets.css_app_styles
-
-        super(Base, cls).post_setup()
-        cls.post_setup_mixins()
-
-    @classmethod
-    def post_setup_mixins(cls):
-        for base in inspect.getmro(cls):
-            if not issubclass(base, Configuration) and hasattr(base, 'post_setup_mixin'):
-                base.post_setup_mixin(cls)
 
 
 class CompressAssets(object):
@@ -250,14 +227,10 @@ class CompressAssets(object):
     PIPELINE_STORAGE = 'pipeline.storage.PipelineStorage'
     STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
-    @classmethod
-    def pre_setup(cls):
-        cls.pre_setup_mixin(cls)
-        super(CompressAssets, cls).pre_setup()
-
     @staticmethod
-    def pre_setup_mixin(cls):
+    def setup(cls):
         cls.STATICFILES_FINDERS += ('pipeline.finders.PipelineFinder', )
+        super(CompressAssets, cls).setup()
 
 
 class S3Assets(object):
@@ -269,13 +242,8 @@ class S3Assets(object):
 
     STATICFILES_STORAGE = 'boilerplate.storage.ReleaseStaticsS3BotoStorage'
 
-    @classmethod
-    def setup(cls):
-        cls.setup_mixin(cls)
-        super(S3Assets, cls).setup()
-
     @staticmethod
-    def setup_mixin(cls):
+    def setup(cls):
         cls.INSTALLED_APPS += ('storages',)
 
         if not hasattr(cls, 'AWS_STORAGE_BUCKET_NAME'):
@@ -288,3 +256,9 @@ class S3Assets(object):
             cls.S3_URL = 'http://s3.amazonaws.com/%s/' % cls.AWS_STORAGE_BUCKET_NAME
 
         cls.STATIC_URL = cls.S3_URL + cls.STATIC_PREFIX
+
+        super(S3Assets, cls).setup()
+
+
+
+
