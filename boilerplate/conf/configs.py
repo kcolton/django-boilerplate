@@ -5,7 +5,6 @@ from configurations import Configuration, values
 from jinja2 import Undefined, DebugUndefined, StrictUndefined
 from boilerplate import assets
 
-import inspect
 import logging
 
 ENV_LOCAL = 'local'
