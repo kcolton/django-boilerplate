@@ -183,6 +183,10 @@ class Base(Configuration):
         },
     }
 
+    SYNCSTATIC_IGNORE_PATTERNS = [
+        '*.less',
+    ]
+
     JQUERY_UI = True
     LODASH = True
     CDN_LIBRARIES = True
