@@ -274,7 +274,7 @@ class S3Assets(object):
 
 
         if hasattr(cls, 'AWS_S3_CUSTOM_DOMAIN'):
-            cls.STATIC_URL = cls.AWS_S3_CUSTOM_DOMAIN + '/' + cls.STATIC_PREFIX
+            cls.STATIC_URL = '//' + cls.AWS_S3_CUSTOM_DOMAIN + '/' + cls.STATIC_PREFIX
         else:
             cls.STATIC_URL = cls.S3_URL + cls.STATIC_PREFIX
 
