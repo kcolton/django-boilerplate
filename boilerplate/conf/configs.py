@@ -219,7 +219,7 @@ class Base(Configuration):
 class CompressAssets(object):
     PIPELINE_ENABLED = True
     PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
-    PIPELINE_CSS_COMPRESSOR = None
+    PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
     PIPELINE_COMPILERS = ('pipeline.compilers.less.LessCompiler',)
 
     # Do our compilation on the collected statics
@@ -235,11 +235,29 @@ class CompressAssets(object):
 class S3Assets(object):
     AWS_ACCESS_KEY_ID = values.SecretValue(environ_prefix=None)
     AWS_SECRET_ACCESS_KEY = values.SecretValue(environ_prefix=None)
+
+    # Use protocol-less // format for auto switching between http and https
+    AWS_S3_SECURE_URLS = False
+    AWS_S3_URL_PROTOCOL = ''
     AWS_QUERYSTRING_AUTH = False
+    # Use / form
     AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
-    AWS_IS_GZIPPED = True
 
     STATICFILES_STORAGE = 'boilerplate.storage.ReleaseStaticsS3BotoStorage'
+
+    # Cache statics for a year. That's why we have the release number for cache busting :)
+    AWS_HEADERS = {
+        'Cache-Control': 'public, max-age=31556926'
+    }
+
+    # Gzip
+    AWS_IS_GZIPPED = True
+    GZIP_CONTENT_TYPES = {
+        'text/css',
+        'application/javascript',
+        'application/x-javascript',
+        'image/svg+xml'
+    }
 
     @classmethod
     def setup(cls):
@@ -252,9 +270,13 @@ class S3Assets(object):
             cls.STATIC_PREFIX = 'static/%s/%d/' % (cls.ENV, cls.RELEASE_NUM)
 
         if not hasattr(cls, 'S3_URL'):
-            cls.S3_URL = 'http://s3.amazonaws.com/%s/' % cls.AWS_STORAGE_BUCKET_NAME
+            cls.S3_URL = '//s3.amazonaws.com/%s/' % cls.AWS_STORAGE_BUCKET_NAME
 
-        cls.STATIC_URL = cls.S3_URL + cls.STATIC_PREFIX
+
+        if hasattr(cls, 'AWS_S3_CUSTOM_DOMAIN'):
+            cls.STATIC_URL = cls.AWS_S3_CUSTOM_DOMAIN + '/' + cls.STATIC_PREFIX
+        else:
+            cls.STATIC_URL = cls.S3_URL + cls.STATIC_PREFIX
 
         super(S3Assets, cls).setup()
 
