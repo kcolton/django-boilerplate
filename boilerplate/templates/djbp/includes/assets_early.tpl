@@ -2,7 +2,7 @@
   {% if CDN_LIBRARIES %}
     <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
   {% else %}
-    <link href="{% static 'third_party/jqueryui/1.10.3/themes/smoothness/jquery-ui.css' %}" rel="stylesheet">
+    <link href="{% static 'third_party/jqueryui/1.10.3/themes/base/jquery-ui.css' %}" rel="stylesheet">
   {% endif %}
 {% endif %}
 

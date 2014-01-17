@@ -13,11 +13,7 @@
 {% endif %}
 
 {% if LODASH %}
-  {% if CDN_LIBRARIES %}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.3.0/lodash.min.js"></script>
-  {% else %}
-    <script src="{% static 'third_party/lodash/2.3.0/lodash.min.js' %}"></script>
-  {% endif %}
+  <script src="{% static 'third_party/lodash/2.3.0/lodash.min.js' %}"></script>
 {% endif %}
 
 {% compressed_js 'main' %}
