@@ -21,12 +21,6 @@ def json_view(view_func=None, allow_jsonp=False):
 
         try:
             output = view_func(request, *args, **kwargs)
-
-            # Todo - We may receive valid json serializable non-dicts
-            # Is there a better, more pythonic way of detecting other responses / json serializability?
-            if not isinstance(output, dict):
-                return output
-
         except StandardError as e:
             # Even for exception we want to return json
             # Come what may, we're returning JSON.
@@ -42,7 +36,11 @@ def json_view(view_func=None, allow_jsonp=False):
             # All went well, return normal response
             response_class = HttpResponse
 
-        json_string = json.dumps(output)
+        try:
+            json_string = json.dumps(output)
+        except TypeError:
+            # Not serializable, perhaps something like a redirect. Just return
+            return output
 
         if allow_jsonp and 'callback' in request.GET:
             json_string = '%s(%s)' % (request.GET['callback'], json_string)
@@ -102,8 +100,3 @@ def csv_attachment_view(view_func=None, filename='spreadsheet.csv'):
         return response
 
     return wrapper
-
-
-
-
-
