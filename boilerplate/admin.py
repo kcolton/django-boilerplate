@@ -39,5 +39,4 @@ class UserAdmin(DefaultUserAdmin):
 try:
     admin.site.unregister(Group)
 except admin.site.NotRegistered:
-    print "Groups not registered. All good"
     pass

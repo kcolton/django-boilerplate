@@ -42,12 +42,12 @@ def resolve_hostname(hostname, timeout=2, nameservers=False):
         socket.setdefaulttimeout(old_default)
 
 
-def resolve_django_db_hostnames():
+def resolve_django_db_hostnames(timeout=2, nameservers=False):
     from django.conf import settings
 
     for db in settings.DATABASES.values():
         if 'HOST' in db:
-            resolve_hostname(db['HOST'])
+            resolve_hostname(db['HOST'], timeout, nameservers)
 
 
 if __name__ == '__main__':

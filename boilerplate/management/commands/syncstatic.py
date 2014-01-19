@@ -20,5 +20,5 @@ class Command(BaseCommand):
         files -= set(settings.PIPELINE_CSS['main']['source_filenames'])
 
         for file in files:
-            print "syncing to s3: %s" % file
+            print('syncing to s3: %s' % file)
             staticfiles_storage.save(file, local_storage.open(file, 'r'))

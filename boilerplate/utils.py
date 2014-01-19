@@ -2,7 +2,8 @@ import imp
 import sys
 import os
 import re
-from pprint import pprint
+
+from boilerplate import logger
 
 
 def dotenv_load(dotenv_file):
@@ -14,10 +15,9 @@ def dotenv_load(dotenv_file):
         dotenv = {attr: getattr(dotenv, attr) for attr in dir(dotenv) if not attr.startswith('_')}
         os.environ.update(dotenv)
 
-        print "Loading .env vars from: %s" % dotenv_file
-        pprint(dotenv)
+        logger.debug('Loading .env vars from: %s' % dotenv_file)
     except IOError:
-        print "%s file not found. skipping." % dotenv_file
+        pass
 
 
 def load_environment():
@@ -26,10 +26,10 @@ def load_environment():
 
     if configuration_args:
         configuration = configuration_arg_check.match(configuration_args[0]).group(1)
-        print "Configuration from arg: %s" % configuration
+        logger.debug('Configuration from arg: %s' % configuration)
         os.environ.setdefault('DJANGO_CONFIGURATION', configuration)
     else:
-        print "Configuration from os.environ"
+        logger.debug('Configuration from os.environ')
         os.environ.setdefault('DJANGO_CONFIGURATION', 'Local')
 
     dotenv_load('envs/%s.env' % os.environ['DJANGO_CONFIGURATION'])

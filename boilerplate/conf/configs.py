@@ -198,8 +198,6 @@ class Base(Configuration):
 
     SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
-    print('Base class namespace')
-
     @classmethod
     def setup(cls):
         cls.STATIC_ROOT = os.path.join(cls.PROJECT_ROOT, 'collectedstatic')
