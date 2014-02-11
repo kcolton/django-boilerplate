@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-boilerplate',
-    version='0.0.7',
+    version='0.0.8',
     description='Boilerplate code I keep including in all Django installs.',
     author='Ken Colton',
     author_email='kcolton@gmail.com',
