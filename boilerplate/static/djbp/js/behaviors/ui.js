@@ -2,6 +2,7 @@
 
   // Let any kind of element trigger a page change
   $(document).on('click.app', '[data-app-href]', function() {
+    if ($(e.target).is(app.page.linksSelector)) return;
     return !app.page.get($(this).data('appHref'));
   });
 
