@@ -46,4 +46,6 @@ Stack in mind:
 
 todo
 
+*   Remove databases default config in config base. Add to initial project template
+
 
