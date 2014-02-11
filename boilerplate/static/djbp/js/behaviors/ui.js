@@ -1,7 +1,7 @@
 (function($) {
 
   // Let any kind of element trigger a page change
-  $(document).on('click.app', '[data-app-href]', function() {
+  $(document).on('click.app', '[data-app-href]', function(e) {
     if ($(e.target).is(app.page.linksSelector)) return;
     return !app.page.get($(this).data('appHref'));
   });
