@@ -12,8 +12,6 @@ class Base(Configuration):
     APP_NAME = 'djbp'
     TITLE = 'DJBP'
 
-    GOOGLE_TAG_MANAGER_CONTAINER = values.Value(None, environ_prefix=None)
-
     MANAGERS = ADMINS = ()
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + (

@@ -30,7 +30,6 @@
         window.app = new App.controllers.App($('[data-app-page]'));
       });
     </script>
-    {% include 'djbp/includes/google_tag_manager.tpl' with context %}
     {% block body_bottom %}{% endblock %}
   </body>
 </html>

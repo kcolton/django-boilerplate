@@ -15,8 +15,6 @@ def context_processor(request):
         'STATIC_URL': settings.STATIC_URL,
         'MEDIA_URL': settings.MEDIA_URL,
 
-        'GOOGLE_TAG_MANAGER_CONTAINER': settings.GOOGLE_TAG_MANAGER_CONTAINER,
-
         'DATE': datetime.datetime.now(),
 
         'JQUERY_UI': settings.JQUERY_UI,
