@@ -1,9 +1,9 @@
 django-boilerplate
 ===============================================================================
 
-**DEAD - At the time there was not as many, but now there are tons of great example setups**
+**DEAD - At the time there was not as many, but now there are tons of great example setups. Go here instead: https://djangopackages.org/packages/p/cookiecutter-django/**
 
-https://djangopackages.org/packages/p/cookiecutter-django/
+
 
 
 Stack in mind:
