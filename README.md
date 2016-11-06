@@ -1,7 +1,10 @@
 django-boilerplate
 ===============================================================================
 
-ALPHA WIP!
+**DEAD - At the time there was not as many, but now there are tons of great example setups**
+
+https://djangopackages.org/packages/p/cookiecutter-django/
+
 
 Stack in mind:
 
